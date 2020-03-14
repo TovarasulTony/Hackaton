@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public GameObject GoDown;
-    public GameObject GoRight;
-    public GameObject GoUp;
-    public GameObject GoLeft;
+    public TileGenerator m_TileGenerator;
+    private Tile m_CurrentTile;
 
     public float speed;
 
     void Start()
     {
-        
+        m_CurrentTile = m_TileGenerator.m_StartingTile;
+        Vector3 new_position = m_CurrentTile.transform.position;
+        transform.position = new Vector3(new_position.x, new_position.y, -2f);
     }
 
     
@@ -23,24 +23,34 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             Debug.Log("Down");
-           
-            gameObject.transform.position = GoDown.transform.position;
+
+            m_CurrentTile = m_CurrentTile.m_TileDown;
+            Vector3 new_position = m_CurrentTile.transform.position;
+            transform.position = new Vector3(new_position.x, new_position.y, -2f);
         }
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-           
             Debug.Log("Up");
-            gameObject.transform.position = GoUp.transform.position;
+
+            m_CurrentTile = m_CurrentTile.m_TileUp;
+            Vector3 new_position = m_CurrentTile.transform.position;
+            transform.position = new Vector3(new_position.x, new_position.y, -2f);
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            gameObject.transform.position = GoLeft.transform.position;
             Debug.Log("Left");
+
+            m_CurrentTile = m_CurrentTile.m_TileLeft;
+            Vector3 new_position = m_CurrentTile.transform.position;
+            transform.position = new Vector3(new_position.x, new_position.y, -2f);
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            gameObject.transform.position = GoRight.transform.position;
             Debug.Log("Right");
+
+            m_CurrentTile = m_CurrentTile.m_TileRight;
+            Vector3 new_position = m_CurrentTile.transform.position;
+            transform.position = new Vector3(new_position.x, new_position.y, -2f);
         }
     }
 }

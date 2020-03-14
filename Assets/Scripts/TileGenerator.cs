@@ -6,8 +6,9 @@ public class TileGenerator : MonoBehaviour
 {
     public GameObject tile;
     private Tile[][] m_TileMatrix=new Tile[20][];
+    public Tile m_StartingTile;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         for (int i = 1; i <= 10; i++)
         {
@@ -25,6 +26,10 @@ public class TileGenerator : MonoBehaviour
                 prefab_tile.m_TileLeft = prefab_tile;
                 prefab_tile.m_TileRight = prefab_tile;
 
+                if(i==5 && j == 5)
+                {
+                    m_StartingTile = prefab_tile;
+                }
             }
             m_TileMatrix[i] = tile_array;
         }
@@ -34,12 +39,12 @@ public class TileGenerator : MonoBehaviour
             for (int j = 1; j <= 10; j++)
             {
                 if (i > 1)
-                    m_TileMatrix[i][j].m_TileUp = m_TileMatrix[i-1][j];
+                    m_TileMatrix[i][j].m_TileDown = m_TileMatrix[i - 1][j];
                 if (j > 1)
                     m_TileMatrix[i][j].m_TileLeft = m_TileMatrix[i][j-1];
-                if (i < 20)
-                    m_TileMatrix[i][j].m_TileDown = m_TileMatrix[i+1][j];
-                if (j <20)
+                if (i < 10)
+                    m_TileMatrix[i][j].m_TileUp = m_TileMatrix[i + 1][j];
+                if (j < 10)
                     m_TileMatrix[i][j].m_TileRight = m_TileMatrix[i][j+1];
 
             }
