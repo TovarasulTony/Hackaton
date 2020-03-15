@@ -36,6 +36,7 @@ public class TileGenerator : MonoBehaviour
                     prefab = Instantiate(m_WallPrefab, position_wall, Quaternion.identity);
                     Wall prefab_wall = prefab.GetComponent<Wall>();
                     prefab_tile.m_Wall = prefab_wall;
+                    Debug.Log(prefab);
                 }
 
                 if (i==5 && j == 5)
