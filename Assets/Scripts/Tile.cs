@@ -8,6 +8,7 @@ public class Tile : MonoBehaviour
     public Tile m_TileDown;
     public Tile m_TileLeft;
     public Tile m_TileRight;
+    public Wall m_Wall=null;
 
     // Start is called before the first frame update
     void Start()
