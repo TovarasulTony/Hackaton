@@ -7,8 +7,6 @@ public class Player : MonoBehaviour
     public TileGenerator m_TileGenerator;
     private Tile m_CurrentTile;
 
-    public float speed;
-
     void Start()
     {
         m_CurrentTile = m_TileGenerator.m_StartingTile;
@@ -16,41 +14,49 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(new_position.x, new_position.y, -2f);
     }
 
-    
+
     void Update()
     {
-        
+
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             Debug.Log("Down");
 
-            m_CurrentTile = m_CurrentTile.m_TileDown;
-            Vector3 new_position = m_CurrentTile.transform.position;
-            transform.position = new Vector3(new_position.x, new_position.y, -2f);
+            Moving(m_CurrentTile.m_TileDown);
         }
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             Debug.Log("Up");
-
-            m_CurrentTile = m_CurrentTile.m_TileUp;
-            Vector3 new_position = m_CurrentTile.transform.position;
-            transform.position = new Vector3(new_position.x, new_position.y, -2f);
+            Moving(m_CurrentTile.m_TileUp);
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             Debug.Log("Left");
 
-            m_CurrentTile = m_CurrentTile.m_TileLeft;
-            Vector3 new_position = m_CurrentTile.transform.position;
-            transform.position = new Vector3(new_position.x, new_position.y, -2f);
+            Moving(m_CurrentTile.m_TileLeft);
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             Debug.Log("Right");
 
-            m_CurrentTile = m_CurrentTile.m_TileRight;
+            Moving(m_CurrentTile.m_TileRight);
+        }
+    }
+    void Moving(Tile _nextTile)
+    {
+        if (_nextTile.m_Wall != null)
+        {
+            Debug.Log("cv");
+            _nextTile.m_Wall.Dig();
+        }
+        else
+        {
+            m_CurrentTile = _nextTile;
             Vector3 new_position = m_CurrentTile.transform.position;
             transform.position = new Vector3(new_position.x, new_position.y, -2f);
         }
+
+
     }
 }
+
