@@ -6,6 +6,7 @@ public class TileGenerator : MonoBehaviour
 {
     public GameObject m_TilePrefab;
     public GameObject m_WallPrefab;
+    public BeatMaster m_BeatMaster;
 
     private Tile[][] m_TileMatrix=new Tile[20][];
     public Tile m_StartingTile;
@@ -29,6 +30,8 @@ public class TileGenerator : MonoBehaviour
                 prefab_tile.m_TileDown = prefab_tile;
                 prefab_tile.m_TileLeft = prefab_tile;
                 prefab_tile.m_TileRight = prefab_tile;
+                prefab_tile.m_BeatMaster = m_BeatMaster;
+                prefab_tile.m_Parity = (i + j) % 2 == 0 ? true : false;
 
                 if (i <= 2 || i >= 9 || j <= 2 || j >= 9)
                 {
