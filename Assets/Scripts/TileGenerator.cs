@@ -32,7 +32,7 @@ public class TileGenerator : MonoBehaviour
 
                 if (i <= 2 || i >= 9 || j <= 2 || j >= 9)
                 {
-                    Vector3 position_wall = new Vector3((float)j, (float)i + 0.25f, -10f + 0.1f * i);
+                    Vector3 position_wall = new Vector3((float)j, (float)i + 0.5f, -10f + 0.1f * i);
                     prefab = Instantiate(m_WallPrefab, position_wall, Quaternion.identity);
                     Wall prefab_wall = prefab.GetComponent<Wall>();
                     prefab_tile.m_Wall = prefab_wall;
