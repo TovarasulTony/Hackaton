@@ -22,32 +22,32 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Down");
 
-            Moving(m_CurrentTile.m_TileDown);
+            Moving(m_CurrentTile.GetTile(TILE_DIRECTION.Down));
         }
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             Debug.Log("Up");
-            Moving(m_CurrentTile.m_TileUp);
+            Moving(m_CurrentTile.GetTile(TILE_DIRECTION.Up));
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             Debug.Log("Left");
 
-            Moving(m_CurrentTile.m_TileLeft);
+            Moving(m_CurrentTile.GetTile(TILE_DIRECTION.Left));
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             Debug.Log("Right");
 
-            Moving(m_CurrentTile.m_TileRight);
+            Moving(m_CurrentTile.GetTile(TILE_DIRECTION.Right));
         }
     }
     void Moving(Tile _nextTile)
     {
-        if (_nextTile.m_Wall != null)
+        if (_nextTile.Contains<Wall>() != null)
         {
             Debug.Log("cv");
-            _nextTile.m_Wall.Dig();
+            _nextTile.Contains<Wall>().GetComponent<Wall>().Dig();
         }
         else
         {

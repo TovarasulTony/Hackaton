@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BEAT_PARITY
+{
+    Invalid,
+    Odd,
+    Even
+}
+
 public class BeatMaster : MonoBehaviour
 {
     public static BeatMaster instance = null;
@@ -10,6 +17,7 @@ public class BeatMaster : MonoBehaviour
     List<IBeat> m_ObserverList = null;
 
     //Beat
+    BEAT_PARITY m_BeatParity;
     int m_CurrentBeat = 0;
     float m_Time = 0;
     float m_TimeFixed = 0;
@@ -26,6 +34,8 @@ public class BeatMaster : MonoBehaviour
         m_Audio = GetComponent<AudioSource>();
         ReadBeat beatReader = new ReadBeat();
         m_BeatsList = beatReader.GetBeatList();
+
+        m_BeatParity = BEAT_PARITY.Even;
     }
 
     private void Start()
@@ -53,8 +63,9 @@ public class BeatMaster : MonoBehaviour
         }
 
         m_CurrentBeat++;
+        ChangeBeatparity();
 
-        foreach(IBeat subscrieber in m_ObserverList)
+        foreach (IBeat subscrieber in m_ObserverList)
         {
             subscrieber.OnBeat();
         }
@@ -68,5 +79,15 @@ public class BeatMaster : MonoBehaviour
     public List<float> GetBeatsList()
     {
         return m_BeatsList;
+    }
+
+    public BEAT_PARITY GetBeatParity()
+    {
+        return m_BeatParity;
+    }
+
+    void ChangeBeatparity()
+    {
+        m_BeatParity = m_BeatParity == BEAT_PARITY.Even ? BEAT_PARITY.Odd : BEAT_PARITY.Even;
     }
 }

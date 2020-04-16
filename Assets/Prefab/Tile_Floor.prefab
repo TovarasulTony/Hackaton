@@ -94,6 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a550b8e915aeb78499b753796ba7f521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_LightSprite: {fileID: 21300000, guid: e98c879b212bb2342a008e71ca9e2db6, type: 3}
+  m_DarkSprite: {fileID: 21300000, guid: a3da020b6f43aa640a1b3cced2d024da, type: 3}
   m_TileUp: {fileID: 0}
   m_TileDown: {fileID: 0}
   m_TileLeft: {fileID: 0}

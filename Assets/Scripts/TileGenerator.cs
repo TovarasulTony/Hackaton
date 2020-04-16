@@ -25,18 +25,17 @@ public class TileGenerator : MonoBehaviour
                 prefab = Instantiate(m_TilePrefab, position, Quaternion.identity);
                 Tile prefab_tile = prefab.GetComponent<Tile>();
                 tile_array[j] = prefab_tile;
-                prefab_tile.m_TileUp = prefab_tile;
-                prefab_tile.m_TileDown = prefab_tile;
-                prefab_tile.m_TileLeft = prefab_tile;
-                prefab_tile.m_TileRight = prefab_tile;
+                prefab_tile.SetTile(TILE_DIRECTION.Up, prefab_tile);
+                prefab_tile.SetTile(TILE_DIRECTION.Down, prefab_tile);
+                prefab_tile.SetTile(TILE_DIRECTION.Left, prefab_tile);
+                prefab_tile.SetTile(TILE_DIRECTION.Right, prefab_tile);
+
+                prefab_tile.SetParity((i + j) % 2 == 0 ? BEAT_PARITY.Even : BEAT_PARITY.Odd);
 
                 if (i <= 2 || i >= 9 || j <= 2 || j >= 9)
                 {
                     Vector3 position_wall = new Vector3((float)j, (float)i + 0.5f, -10f + 0.1f * i);
-                    prefab = Instantiate(m_WallPrefab, position_wall, Quaternion.identity);
-                    Wall prefab_wall = prefab.GetComponent<Wall>();
-                    prefab_tile.m_Wall = prefab_wall;
-                    Debug.Log(prefab);
+                    CreateWall(prefab_tile, position_wall, Quaternion.identity);
                 }
 
                 if (i==5 && j == 5)
@@ -53,22 +52,23 @@ public class TileGenerator : MonoBehaviour
             for (int j = 1; j <= 10; j++)
             {
                 if (i > 1)
-                    m_TileMatrix[i][j].m_TileDown = m_TileMatrix[i - 1][j];
+                    m_TileMatrix[i][j].SetTile(TILE_DIRECTION.Down, m_TileMatrix[i - 1][j]);
                 if (j > 1)
-                    m_TileMatrix[i][j].m_TileLeft = m_TileMatrix[i][j-1];
+                    m_TileMatrix[i][j].SetTile(TILE_DIRECTION.Left, m_TileMatrix[i][j - 1]);
                 if (i < 10)
-                    m_TileMatrix[i][j].m_TileUp = m_TileMatrix[i + 1][j];
+                    m_TileMatrix[i][j].SetTile(TILE_DIRECTION.Up, m_TileMatrix[i + 1][j]);
                 if (j < 10)
-                    m_TileMatrix[i][j].m_TileRight = m_TileMatrix[i][j+1];
+                    m_TileMatrix[i][j].SetTile(TILE_DIRECTION.Right, m_TileMatrix[i][j + 1]);
 
             }
         }
 
     }
 
-    // Update is called once per frame
-    void Update()
+    void CreateWall(Tile _tile, Vector3 _position, Quaternion _rotation)
     {
-        
+        GameObject prefab = Instantiate(m_WallPrefab, _position, _rotation);
+        Wall prefab_wall = prefab.GetComponent<Wall>();
+        _tile.AddToTile(prefab_wall.gameObject);
     }
 }
