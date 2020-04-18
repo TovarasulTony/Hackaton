@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : AboveTileObject
 {
     public TileGenerator m_TileGenerator;
     private Tile m_CurrentTile;
@@ -20,25 +20,18 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Debug.Log("Down");
-
             Moving(m_CurrentTile.GetTile(TILE_DIRECTION.Down));
         }
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            Debug.Log("Up");
             Moving(m_CurrentTile.GetTile(TILE_DIRECTION.Up));
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            Debug.Log("Left");
-
             Moving(m_CurrentTile.GetTile(TILE_DIRECTION.Left));
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            Debug.Log("Right");
-
             Moving(m_CurrentTile.GetTile(TILE_DIRECTION.Right));
         }
     }
@@ -46,8 +39,7 @@ public class Player : MonoBehaviour
     {
         if (_nextTile.Contains<Wall>() != null)
         {
-            Debug.Log("cv");
-            _nextTile.Contains<Wall>().GetComponent<Wall>().Dig();
+            _nextTile.Contains<Wall>().GetComponent<Wall>().Dig(1);
         }
         else
         {
@@ -55,8 +47,6 @@ public class Player : MonoBehaviour
             Vector3 new_position = m_CurrentTile.transform.position;
             transform.position = new Vector3(new_position.x, new_position.y, -2f);
         }
-
-
     }
 }
 

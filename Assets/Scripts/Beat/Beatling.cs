@@ -42,7 +42,6 @@ public class Beatling : MonoBehaviour
 
     public void SetHeartReference(Heart _destinationX)
     {
-        Debug.Log(transform.position);
         m_HeartReference = _destinationX;
     }
 }

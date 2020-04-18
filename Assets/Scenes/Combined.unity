@@ -175,9 +175,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3919f74698d9de54aaca66d15f2528b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TilePrefab: {fileID: 203130354024669293, guid: b5079c77dcb2f8544869755ed9e1254c,
+  m_TilePrefab: {fileID: 6904679284663283708, guid: b5079c77dcb2f8544869755ed9e1254c,
     type: 3}
-  m_WallPrefab: {fileID: 3607658877587387136, guid: 26adbdc319674fb4ea59d58459c19fa4,
+  m_WallPrefab: {fileID: 3123729036537271300, guid: 26adbdc319674fb4ea59d58459c19fa4,
+    type: 3}
+  m_ShopWallPrefab: {fileID: 2404876690361856225, guid: 4440486903da4dd4aa27c96b4089329f,
     type: 3}
   m_StartingTile: {fileID: 0}
 --- !u!4 &1540886077

@@ -16,13 +16,13 @@ public class Tile : MonoBehaviour, IBeat
     public Sprite m_LightSprite;
     public Sprite m_DarkSprite;
     Dictionary<TILE_DIRECTION, Tile> m_Tiles = null;
-    List<GameObject> m_ContainedObjects = null;
+    List<AboveTileObject> m_ContainedObjects = null;
     BEAT_PARITY m_TileParity;
 
     // Start is called before the first frame update
     void Awake()
     {
-        m_ContainedObjects = new List<GameObject>();
+        m_ContainedObjects = new List<AboveTileObject>();
         m_Tiles = new Dictionary<TILE_DIRECTION, Tile>();
         m_Tiles.Add(TILE_DIRECTION.Up, null);
         m_Tiles.Add(TILE_DIRECTION.Down, null);
@@ -32,12 +32,13 @@ public class Tile : MonoBehaviour, IBeat
         BeatMaster.instance.SubscribeToBeat(gameObject.GetComponent<IBeat>());
     }
 
-    public void AddToTile(GameObject _objectToAdd)
+    public void AddToTile(AboveTileObject _objectToAdd)
     {
         m_ContainedObjects.Add(_objectToAdd);
+        _objectToAdd.SetTileReference(gameObject.GetComponent<Tile>());
     }
 
-    public void RemoveFromTile(GameObject _objetToRemove)
+    public void RemoveFromTile(AboveTileObject _objetToRemove)
     {
         if(m_ContainedObjects.Contains(_objetToRemove))
         {
@@ -45,9 +46,9 @@ public class Tile : MonoBehaviour, IBeat
         }
     }
 
-    public GameObject Contains<T>()
+    public AboveTileObject Contains<T>()
     {
-        foreach(GameObject element in m_ContainedObjects)
+        foreach(AboveTileObject element in m_ContainedObjects)
         {
             if(element.GetComponent<T>() != null)
             {

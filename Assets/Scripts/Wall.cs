@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wall : MonoBehaviour
+public class Wall : AboveTileObject
 {
-    public void Dig()
+    public int m_WallMight;
+    public void Dig(int _digMight)
     {
-        Destroy(gameObject);
+        if (_digMight >= m_WallMight)
+        {
+            DestroyThis();
+        }
     }
 }
