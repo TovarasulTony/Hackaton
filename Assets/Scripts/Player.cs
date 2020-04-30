@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Player : AboveTileObject
 {
-    public TileGenerator m_TileGenerator;
-    private Tile m_CurrentTile;
+    private TileGenerator m_TileGenerator;
+    List<IPlayerSubscriber> m_SubscriberList;
 
     void Start()
     {
-        m_CurrentTile = m_TileGenerator.m_StartingTile;
+        //m_SubscriberList = new List<IPlayerSubscriber>(); This is shitty; Trebuie un loader
+        m_CurrentTile = m_TileGenerator.GetStartingTile();
         Vector3 new_position = m_CurrentTile.transform.position;
         transform.position = new Vector3(new_position.x, new_position.y, -2f);
     }
@@ -17,7 +18,6 @@ public class Player : AboveTileObject
 
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             Moving(m_CurrentTile.GetTile(TILE_DIRECTION.Down));
@@ -35,6 +35,7 @@ public class Player : AboveTileObject
             Moving(m_CurrentTile.GetTile(TILE_DIRECTION.Right));
         }
     }
+
     void Moving(Tile _nextTile)
     {
         if (_nextTile.Contains<Wall>() != null)
@@ -43,10 +44,40 @@ public class Player : AboveTileObject
         }
         else
         {
+            m_CurrentTile.RemoveFromTile(GetComponent<AboveTileObject>());
             m_CurrentTile = _nextTile;
+            m_CurrentTile.AddToTile(GetComponent<AboveTileObject>());
             Vector3 new_position = m_CurrentTile.transform.position;
             transform.position = new Vector3(new_position.x, new_position.y, -2f);
         }
+        NotifySubscribers();
+    }
+
+    public void Subscribe(IPlayerSubscriber _subscriber)
+    {
+        if(m_SubscriberList == null)
+        {
+            m_SubscriberList = new List<IPlayerSubscriber>();
+        }
+        m_SubscriberList.Add(_subscriber);
+    }
+
+    void NotifySubscribers()
+    {
+        if(m_SubscriberList == null)
+        {
+            return;
+        }
+
+        foreach(IPlayerSubscriber subscriber in m_SubscriberList)
+        {
+            subscriber.OnPlayerMovement();
+        }
+    }
+
+    public void SetTileGenerator(TileGenerator _generatorReference)
+    {
+        m_TileGenerator = _generatorReference;
     }
 }
 

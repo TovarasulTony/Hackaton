@@ -127,7 +127,6 @@ Transform:
   m_Children:
   - {fileID: 7975587432989433413}
   - {fileID: 7975587433523832680}
-  - {fileID: 1266145349925596130}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -194,7 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faca462f3fd5941469b30ef2c5314e26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myPlayer: {fileID: 0}
+  m_Player: {fileID: 0}
 --- !u!1 &7975587433523832681
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,78 +240,3 @@ MonoBehaviour:
   m_BeatlingPrefab: {fileID: 7206417584921628046, guid: c9c45b16635395847bd5deecd333ad0f,
     type: 3}
   m_HeartReference: {fileID: 7975587432989433412}
---- !u!1001 &7975587432965591572
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 7975587433097225394}
-    m_Modifications:
-    - target: {fileID: 9168408546883680753, guid: 776dbcea6c3124c4ca77486d838f6631,
-        type: 3}
-      propertyPath: m_Name
-      value: BeatMaster
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168408546883680758, guid: 776dbcea6c3124c4ca77486d838f6631,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168408546883680758, guid: 776dbcea6c3124c4ca77486d838f6631,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168408546883680758, guid: 776dbcea6c3124c4ca77486d838f6631,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168408546883680758, guid: 776dbcea6c3124c4ca77486d838f6631,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168408546883680758, guid: 776dbcea6c3124c4ca77486d838f6631,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168408546883680758, guid: 776dbcea6c3124c4ca77486d838f6631,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168408546883680758, guid: 776dbcea6c3124c4ca77486d838f6631,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168408546883680758, guid: 776dbcea6c3124c4ca77486d838f6631,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168408546883680758, guid: 776dbcea6c3124c4ca77486d838f6631,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168408546883680758, guid: 776dbcea6c3124c4ca77486d838f6631,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168408546883680758, guid: 776dbcea6c3124c4ca77486d838f6631,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 776dbcea6c3124c4ca77486d838f6631, type: 3}
---- !u!4 &1266145349925596130 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9168408546883680758, guid: 776dbcea6c3124c4ca77486d838f6631,
-    type: 3}
-  m_PrefabInstance: {fileID: 7975587432965591572}
-  m_PrefabAsset: {fileID: 0}

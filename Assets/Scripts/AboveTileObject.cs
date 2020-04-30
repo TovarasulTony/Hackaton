@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class AboveTileObject : MonoBehaviour
 {
-    Tile m_TileReference = null;
+    protected Tile m_CurrentTile = null;
 
     public void SetTileReference(Tile _tile)
     {
-        m_TileReference = _tile;
+        m_CurrentTile = _tile;
+    }
+
+    public Tile GetTileReference()
+    {
+        return m_CurrentTile;
     }
 
     public void DestroyThis()
     {
-        m_TileReference.RemoveFromTile(gameObject.GetComponent<AboveTileObject>());
+        m_CurrentTile.RemoveFromTile(gameObject.GetComponent<AboveTileObject>());
         Destroy(gameObject);
     }
 }

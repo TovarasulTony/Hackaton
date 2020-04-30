@@ -61,7 +61,6 @@ public class BeatMaster : MonoBehaviour
         {
             return;
         }
-
         m_CurrentBeat++;
         ChangeBeatparity();
 

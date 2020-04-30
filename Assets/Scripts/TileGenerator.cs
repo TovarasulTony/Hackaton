@@ -21,7 +21,7 @@ public class TileGenerator : MonoBehaviour
     private Tile[,] m_TileMatrix;
     STRUCTURE_TYPE[,] m_MapMatrix;
     int[,] m_ReducedMatrix;
-    public Tile m_StartingTile;
+    private Tile m_StartingTile;
     int m_MatrixLength = 30 ;
 
     int m_ShopX;
@@ -219,5 +219,10 @@ public class TileGenerator : MonoBehaviour
     {
         Wall prefab_wall = Instantiate(_wallPrefab, _position, _rotation);
         _tile.AddToTile(prefab_wall.GetComponent<AboveTileObject>());
+    }
+
+    public Tile GetStartingTile()
+    {
+        return m_StartingTile;
     }
 }
