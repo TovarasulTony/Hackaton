@@ -16,6 +16,9 @@ public class TileGenerator : MonoBehaviour
 {
     public Tile m_TilePrefab;
     public Wall m_WallPrefab;
+    public List<Sprite> m_WallSpriteListT1;
+    public List<Sprite> m_WallSpriteListT2;
+    public List<Sprite> m_WallSpriteListT3;
     public Wall m_ShopWallPrefab;
     GameObject m_MapGameObject;
 
@@ -182,13 +185,13 @@ public class TileGenerator : MonoBehaviour
                 if (m_MapMatrix[i,j]==STRUCTURE_TYPE.Wall)
                 {
                     Vector3 position_wall = new Vector3((float)j, (float)i + 0.5f, -10f + 0.1f * i);
-                    CreateWall(m_WallPrefab, prefab_tile, position_wall, Quaternion.identity);
+                    CreateWall( prefab_tile, position_wall, Quaternion.identity);
                 }
 
                 if (m_MapMatrix[i, j] == STRUCTURE_TYPE.ShopWall)
                 {
                     Vector3 position_wall = new Vector3((float)j, (float)i + 0.5f, -10f + 0.1f * i);
-                    CreateWall(m_ShopWallPrefab, prefab_tile, position_wall, Quaternion.identity);
+                    CreateWall( prefab_tile, position_wall, Quaternion.identity, m_ShopWallPrefab);
                 }
 
                 if (i == m_ShopX && j == m_ShopY)
@@ -218,9 +221,34 @@ public class TileGenerator : MonoBehaviour
         }
     }
 
-    void CreateWall(Wall _wallPrefab, Tile _tile, Vector3 _position, Quaternion _rotation)
+    void CreateWall(Tile _tile, Vector3 _position, Quaternion _rotation, Wall _wallPrefab= null)
     {
-        Wall prefab_wall = Instantiate(_wallPrefab, _position, _rotation);
+        Wall prefab_wall = null;
+        if(_wallPrefab != null)
+        {
+            prefab_wall = Instantiate(_wallPrefab, _position, _rotation);
+        }
+        else
+        {
+            prefab_wall = Instantiate(m_WallPrefab, _position, _rotation);
+            SpriteRenderer wallSpriteRenderer = prefab_wall.GetComponent<SpriteRenderer>();
+            List<Sprite> spriteList;
+            int rng = Random.Range(1, 100);
+            if(rng < 81)
+            {
+                spriteList = m_WallSpriteListT1;
+            }
+            else if(rng <96)
+            {
+                spriteList = m_WallSpriteListT2;
+            }
+            else
+            {
+                spriteList = m_WallSpriteListT3;
+            }
+            wallSpriteRenderer.sprite = spriteList[Random.Range(0,spriteList.Count-1)];
+        }
+        
         prefab_wall.transform.parent = m_MapGameObject.transform;
         _tile.AddToTile(prefab_wall.GetComponent<AboveTileObject>());
     }
