@@ -17,6 +17,7 @@ public class TileGenerator : MonoBehaviour
     public Tile m_TilePrefab;
     public Wall m_WallPrefab;
     public Wall m_ShopWallPrefab;
+    GameObject m_MapGameObject;
 
     private Tile[,] m_TileMatrix;
     STRUCTURE_TYPE[,] m_MapMatrix;
@@ -29,6 +30,7 @@ public class TileGenerator : MonoBehaviour
 
     void Awake()
     {
+        m_MapGameObject = new GameObject("Map");
         m_MapMatrix = new STRUCTURE_TYPE[m_MatrixLength, m_MatrixLength];
         m_TileMatrix = new Tile[m_MatrixLength, m_MatrixLength];
 
@@ -168,6 +170,7 @@ public class TileGenerator : MonoBehaviour
             {
                 Vector3 position = new Vector3((float)j, (float)i, 20f);
                 Tile prefab_tile = Instantiate(m_TilePrefab, position, Quaternion.identity);
+                prefab_tile.transform.parent = m_MapGameObject.transform;
                 m_TileMatrix[i,j] = prefab_tile;
                 prefab_tile.SetTile(TILE_DIRECTION.Up, prefab_tile);
                 prefab_tile.SetTile(TILE_DIRECTION.Down, prefab_tile);
@@ -218,6 +221,7 @@ public class TileGenerator : MonoBehaviour
     void CreateWall(Wall _wallPrefab, Tile _tile, Vector3 _position, Quaternion _rotation)
     {
         Wall prefab_wall = Instantiate(_wallPrefab, _position, _rotation);
+        prefab_wall.transform.parent = m_MapGameObject.transform;
         _tile.AddToTile(prefab_wall.GetComponent<AboveTileObject>());
     }
 

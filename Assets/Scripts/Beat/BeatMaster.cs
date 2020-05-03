@@ -24,7 +24,7 @@ public class BeatMaster : MonoBehaviour
 
     private void Awake()
     {
-        if(BeatMaster.instance != null)
+        if(instance != null)
         {
             Debug.LogWarning("BeatMaster instantiat de doua ori");
             Destroy(gameObject);
@@ -88,5 +88,10 @@ public class BeatMaster : MonoBehaviour
     void ChangeBeatparity()
     {
         m_BeatParity = m_BeatParity == BEAT_PARITY.Even ? BEAT_PARITY.Odd : BEAT_PARITY.Even;
+    }
+
+    public int GetBeatNumber()
+    {
+        return m_CurrentBeat;
     }
 }
