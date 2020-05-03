@@ -18,6 +18,7 @@ public class Tile : MonoBehaviour, IBeat
     Dictionary<TILE_DIRECTION, Tile> m_Tiles = null;
     List<AboveTileObject> m_ContainedObjects = null;
     BEAT_PARITY m_TileParity;
+    int m_Elevation = -1;
 
     // Start is called before the first frame update
     void Awake()
