@@ -9,7 +9,7 @@ public class ReadBeat
     public ReadBeat()
     {
         int i = 0;
-        string[] lines = System.IO.File.ReadAllLines(@"D:\Hackaton\Assets\Scripts\Beat\beat.txt");
+        string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Andreea\Desktop\Hackaton\Assets\Scripts\Beat\beat.txt");
         foreach (string line in lines)
         {
             m_BeatList.Add(float.Parse(line, System.Globalization.CultureInfo.InvariantCulture.NumberFormat));
