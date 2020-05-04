@@ -47,6 +47,27 @@ MonoBehaviour:
     type: 3}
   m_WallPrefab: {fileID: 3123729036537271300, guid: 26adbdc319674fb4ea59d58459c19fa4,
     type: 3}
+  m_WallSpriteListT1:
+  - {fileID: 21300000, guid: 067060ed10e4c1c459a096e583bd5ff6, type: 3}
+  - {fileID: 21300000, guid: 71158ea6a07142b489962ae3a71a73ed, type: 3}
+  m_WallSpriteListT2:
+  - {fileID: 21300000, guid: c1719676d35da5a45b77f02adac4d7e5, type: 3}
+  - {fileID: 21300000, guid: 238cf9250a7b5bc43a1b26af63093c76, type: 3}
+  - {fileID: 21300000, guid: fbc81daf25a7ce04f88e84edc1767bbe, type: 3}
+  - {fileID: 21300000, guid: dd4c952ee5f75f04d890663dc1c0a75d, type: 3}
+  - {fileID: 21300000, guid: ee3b6b167bb14b6419c88257a08cbec0, type: 3}
+  - {fileID: 21300000, guid: 0ad1c450d34c3e64b815c24edb1103c1, type: 3}
+  - {fileID: 21300000, guid: 0881d52b92ab1914ca7d7ecc39154a02, type: 3}
+  - {fileID: 21300000, guid: 5aa39a360289dc0448d288dac5a39b82, type: 3}
+  - {fileID: 21300000, guid: 2ef40cbbc317b70478ee9199b7ad7426, type: 3}
+  - {fileID: 21300000, guid: efe80f38e6b539942b642616b68a5fd8, type: 3}
+  - {fileID: 21300000, guid: 3d273bc787ccfb1438093f716bc7cca2, type: 3}
+  - {fileID: 21300000, guid: 7431a4913bdfac9428b1d79f7b1f6d26, type: 3}
+  - {fileID: 21300000, guid: 0b7296af36925a44ba8616bb12eb1ae6, type: 3}
+  - {fileID: 21300000, guid: ccf67ff1c6773af4bb7308ad726694af, type: 3}
+  - {fileID: 21300000, guid: be30139054a2dd0408cb8bb251112779, type: 3}
+  m_WallSpriteListT3:
+  - {fileID: 21300000, guid: 313337b81570f034782e1f80a11586c3, type: 3}
+  - {fileID: 21300000, guid: c741590957b256543aadb9a66789e1e4, type: 3}
   m_ShopWallPrefab: {fileID: 2404876690361856225, guid: 4440486903da4dd4aa27c96b4089329f,
     type: 3}
-  m_StartingTile: {fileID: 0}
