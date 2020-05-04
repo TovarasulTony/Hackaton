@@ -15,7 +15,7 @@ public class Beatling : MonoBehaviour
     Heart m_HeartReference = null;
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (m_Parity == BEATLING_PARITY.Left)
         {

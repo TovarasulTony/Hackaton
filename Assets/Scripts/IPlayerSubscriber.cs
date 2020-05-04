@@ -1,5 +1,5 @@
 ﻿public interface IPlayerSubscriber
 {
-    void OnPlayerMovement();
+    void OnPlayerMovement(DIRECTION _direction);
 }
 

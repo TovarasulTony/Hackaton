@@ -19,7 +19,7 @@ public class BeatMaster : MonoBehaviour
     //Beat
     BEAT_PARITY m_BeatParity;
     int m_CurrentBeat = 0;
-    float m_Time = 0;
+    //float m_Time = 0;
     float m_TimeFixed = 0;
 
     private void Awake()
@@ -42,22 +42,22 @@ public class BeatMaster : MonoBehaviour
     {
         m_Audio.Play();
     }
-
+    /*
     void Update()
     {
         m_Time += Time.deltaTime;
         HandleBeat();
-    }
+    }*/
 
     private void FixedUpdate()
     {
-        m_TimeFixed += Time.deltaTime;
+        m_TimeFixed += Time.fixedDeltaTime;
         HandleBeat();
     }
 
     void HandleBeat()
-    {
-        if(m_Time < m_BeatsList[m_CurrentBeat] || m_TimeFixed < m_BeatsList[m_CurrentBeat])
+    {//m_Time < m_BeatsList[m_CurrentBeat] ||
+        if ( m_TimeFixed < m_BeatsList[m_CurrentBeat])
         {
             return;
         }

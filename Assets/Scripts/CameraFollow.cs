@@ -2,21 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-enum DIRECTION
-{
-    Invalid,
-    None,
-    Up,
-    Down,
-    Left,
-    Right
-}
-
 public class CameraFollow : MonoBehaviour, IPlayerSubscriber
 {
     public Player m_Player;
     Vector3 m_TargetPosition;
     DIRECTION m_Direction = DIRECTION.None;
+
+    float debugTime = 0;
 
     const float c_PositionZ = -20;
 
@@ -28,9 +20,9 @@ public class CameraFollow : MonoBehaviour, IPlayerSubscriber
         transform.position = new Vector3(m_TargetPosition.x, m_TargetPosition.y, c_PositionZ);
     }
 
-
-    void LateUpdate()
+    void FixedUpdate()
     {
+        debugTime += Time.fixedDeltaTime;
         FollowPlayer();
     }
 
@@ -40,7 +32,7 @@ public class CameraFollow : MonoBehaviour, IPlayerSubscriber
         {
             return;
         }
-        float cameraSpeed = Time.deltaTime * 5;
+        float cameraSpeed = Time.deltaTime * 7;
         switch(m_Direction)
         {
             case DIRECTION.Up:
@@ -49,6 +41,8 @@ public class CameraFollow : MonoBehaviour, IPlayerSubscriber
                 {
                     m_Direction = DIRECTION.None;
                     transform.position = m_TargetPosition;
+                    Debug.Log(debugTime);
+                    debugTime = 0;
                 }
                 break;
             case DIRECTION.Down:
@@ -57,6 +51,8 @@ public class CameraFollow : MonoBehaviour, IPlayerSubscriber
                 {
                     m_Direction = DIRECTION.None;
                     transform.position = m_TargetPosition;
+                    Debug.Log(debugTime);
+                    debugTime = 0;
                 }
                 break;
             case DIRECTION.Right:
@@ -65,6 +61,8 @@ public class CameraFollow : MonoBehaviour, IPlayerSubscriber
                 {
                     m_Direction = DIRECTION.None;
                     transform.position = m_TargetPosition;
+                    Debug.Log(debugTime);
+                    debugTime = 0;
                 }
                 break;
             case DIRECTION.Left:
@@ -73,32 +71,21 @@ public class CameraFollow : MonoBehaviour, IPlayerSubscriber
                 {
                     m_Direction = DIRECTION.None;
                     transform.position = m_TargetPosition;
+                    Debug.Log(debugTime);
+                    debugTime = 0;
                 }
                 break;
         }
 
     }
 
-    public void OnPlayerMovement()
+    public void OnPlayerMovement(DIRECTION _direction)
     {
+        debugTime = 0;
+
         m_TargetPosition = m_Player.GetTileReference().transform.position;
         m_TargetPosition = new Vector3(m_TargetPosition.x, m_TargetPosition.y, transform.position.z);
-        if (m_TargetPosition.x > transform.position.x)
-        {
-            m_Direction = DIRECTION.Right;
-        }
-        if (m_TargetPosition.x < transform.position.x)
-        {
-            m_Direction = DIRECTION.Left;
-        }
-        if (m_TargetPosition.y > transform.position.y)
-        {
-            m_Direction = DIRECTION.Up;
-        }
-        if (m_TargetPosition.y < transform.position.y)
-        {
-            m_Direction = DIRECTION.Down;
-        }
+        m_Direction = _direction;
     }
 
     public void SetPlayerReference(Player _player)
