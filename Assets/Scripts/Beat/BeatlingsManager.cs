@@ -25,7 +25,7 @@ public class BeatlingsManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        m_TimeFixed += Time.deltaTime;
+        m_TimeFixed += Time.fixedDeltaTime;
         PrepareBeatling();
     }
 
