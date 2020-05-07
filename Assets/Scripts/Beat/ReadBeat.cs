@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,9 @@ public class ReadBeat
     public ReadBeat()
     {
         int i = 0;
-        string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Andreea\Desktop\Hackaton\Assets\Scripts\Beat\beat.txt");
+        //this might not work on every environment idk
+        string beatFilePath= Directory.GetCurrentDirectory() + @"\Assets\Scripts\Beat\beat.txt";
+        string[] lines = System.IO.File.ReadAllLines(beatFilePath);
         foreach (string line in lines)
         {
             m_BeatList.Add(float.Parse(line, System.Globalization.CultureInfo.InvariantCulture.NumberFormat));

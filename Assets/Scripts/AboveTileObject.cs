@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AboveTileObject : MonoBehaviour
+public class AboveTileObject : GenericActor
 {
     protected Tile m_CurrentTile = null;
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-enum MOVEMENT_STATUS
+public enum MOVEMENT_STATUS
 {
     Invalid,
     Standing,
@@ -39,27 +39,30 @@ public class Player : AboveTileObject
 
     //shitty practice
     public Transform m_AnimationTransform;
-    float m_OldY;
 
 
     //Bad Practice
     public MissedBeat m_MissedBeatPrefab;
 
-    void Start()
+    protected override void StartActor()
     {
         //m_SubscriberList = new List<IPlayerSubscriber>(); This is shitty; Trebuie un loader
         m_CurrentTile = m_TileGenerator.GetStartingTile();
         Vector3 new_position = m_CurrentTile.transform.position;
         transform.position = new Vector3(new_position.x, new_position.y, -2f);
+
+        PlayerAnimation playerAnimation = new PlayerAnimation();
+        playerAnimation.SetPlayerReference(GetComponent<Player>());
+
+        mBehaviorsList.Add(playerAnimation);
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdateActor()
     {
         HandleTimeout();
-        MovingAnimation();
     }
 
-    void Update()
+    protected override void UpdateActor()
     {
         HandleInput();
     }
@@ -109,7 +112,6 @@ public class Player : AboveTileObject
         Vector3 new_position = m_CurrentTile.transform.position;
         m_NewPosition = new Vector3(new_position.x, new_position.y, -2f);
         m_MovementStatus = MOVEMENT_STATUS.MovingAnimation;
-        m_OldY = m_AnimationTransform.position.y;
         UpdatePlayerDirection();
 
         NotifySubscribers();
@@ -202,8 +204,6 @@ public class Player : AboveTileObject
         }
     }
 
-
-
     public void Subscribe(IPlayerSubscriber _subscriber)
     {
         if(m_SubscriberList == null)
@@ -224,61 +224,6 @@ public class Player : AboveTileObject
         {
             subscriber.OnPlayerMovement(m_MovementDirection);
         }
-    }
-
-    void MovingAnimation()
-    {
-        if(m_MovementStatus != MOVEMENT_STATUS.MovingAnimation)
-        {
-            return;
-        }
-        float speed = Time.fixedDeltaTime * 7;
-        switch (m_MovementDirection)
-        {
-            case DIRECTION.Up:
-                transform.position = new Vector3(transform.position.x, transform.position.y + speed, transform.position.z);
-                m_AnimationTransform.position = new Vector3(m_AnimationTransform.position.x, m_AnimationTransform.position.y + speed / 3, m_AnimationTransform.position.z);
-                if (transform.position.y >= m_NewPosition.y)
-                {
-                    DestinationReached();
-                    m_AnimationTransform.position = new Vector3(m_AnimationTransform.position.x, m_OldY + 1, m_AnimationTransform.position.z);
-                }
-                break;
-            case DIRECTION.Down:
-                transform.position = new Vector3(transform.position.x, transform.position.y - speed, transform.position.z);
-                m_AnimationTransform.position = new Vector3(m_AnimationTransform.position.x, m_AnimationTransform.position.y + speed / 3, m_AnimationTransform.position.z);
-                if (transform.position.y <= m_NewPosition.y)
-                {
-                    DestinationReached();
-                    m_AnimationTransform.position = new Vector3(m_AnimationTransform.position.x, m_OldY - 1, m_AnimationTransform.position.z);
-                }
-                break;
-            case DIRECTION.Right:
-                transform.position = new Vector3(transform.position.x + speed, transform.position.y, transform.position.z);
-                m_AnimationTransform.position = new Vector3(m_AnimationTransform.position.x, m_AnimationTransform.position.y + speed/2, m_AnimationTransform.position.z);
-                if (transform.position.x >= m_NewPosition.x)
-                {
-                    DestinationReached();
-                    m_AnimationTransform.position = new Vector3(m_AnimationTransform.position.x, m_OldY, m_AnimationTransform.position.z);
-                }
-                break;
-            case DIRECTION.Left:
-                transform.position = new Vector3(transform.position.x - speed, transform.position.y, transform.position.z);
-                m_AnimationTransform.position = new Vector3(m_AnimationTransform.position.x, m_AnimationTransform.position.y + speed/2, m_AnimationTransform.position.z);
-                if (transform.position.x <= m_NewPosition.x)
-                {
-                    DestinationReached();
-                    m_AnimationTransform.position = new Vector3(m_AnimationTransform.position.x, m_OldY, m_AnimationTransform.position.z);
-                }
-                break;
-        }
-    }
-
-    void DestinationReached()
-    {
-        m_MovementDirection = DIRECTION.None;
-        transform.position = m_NewPosition;
-        m_MovementStatus = MOVEMENT_STATUS.MovingCombo;
     }
 
     public void SetTileGenerator(TileGenerator _generatorReference)
@@ -338,6 +283,36 @@ public class Player : AboveTileObject
         }
 
         return returnTile;
+    }
+
+    public Vector3 GetNewPosition()
+    {
+        return m_NewPosition;
+    }
+
+    public Transform GetAnimatorTransform()
+    {
+        return m_AnimationTransform;
+    }
+
+    public DIRECTION GetDirection()
+    {
+        return m_MovementDirection;
+    }
+
+    public void SetDirection(DIRECTION _direction)
+    {
+        m_MovementDirection = _direction;
+    }
+
+    public MOVEMENT_STATUS GetMovementStatus()
+    {
+        return m_MovementStatus;
+    }
+
+    public void SetMovementStatus(MOVEMENT_STATUS _status)
+    {
+        m_MovementStatus = _status;
     }
 }
 
