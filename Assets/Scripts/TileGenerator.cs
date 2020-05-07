@@ -175,10 +175,10 @@ public class TileGenerator : MonoBehaviour
                 Tile prefab_tile = Instantiate(m_TilePrefab, position, Quaternion.identity);
                 prefab_tile.transform.parent = m_MapGameObject.transform;
                 m_TileMatrix[i,j] = prefab_tile;
-                prefab_tile.SetTile(TILE_DIRECTION.Up, prefab_tile);
-                prefab_tile.SetTile(TILE_DIRECTION.Down, prefab_tile);
-                prefab_tile.SetTile(TILE_DIRECTION.Left, prefab_tile);
-                prefab_tile.SetTile(TILE_DIRECTION.Right, prefab_tile);
+                prefab_tile.SetTile(DIRECTION.Up, prefab_tile);
+                prefab_tile.SetTile(DIRECTION.Down, prefab_tile);
+                prefab_tile.SetTile(DIRECTION.Left, prefab_tile);
+                prefab_tile.SetTile(DIRECTION.Right, prefab_tile);
 
                 prefab_tile.SetParity((i + j) % 2 == 0 ? BEAT_PARITY.Even : BEAT_PARITY.Odd);
 
@@ -209,13 +209,13 @@ public class TileGenerator : MonoBehaviour
             for (int j = 0; j < m_MatrixLength; j++)
             {
                 if (i > 0)
-                    m_TileMatrix[i, j].SetTile(TILE_DIRECTION.Down, m_TileMatrix[i - 1, j]);
+                    m_TileMatrix[i, j].SetTile(DIRECTION.Down, m_TileMatrix[i - 1, j]);
                 if (j > 0)
-                    m_TileMatrix[i, j].SetTile(TILE_DIRECTION.Left, m_TileMatrix[i, j - 1]);
+                    m_TileMatrix[i, j].SetTile(DIRECTION.Left, m_TileMatrix[i, j - 1]);
                 if (i < m_MatrixLength - 1)
-                    m_TileMatrix[i, j].SetTile(TILE_DIRECTION.Up, m_TileMatrix[i + 1, j]);
+                    m_TileMatrix[i, j].SetTile(DIRECTION.Up, m_TileMatrix[i + 1, j]);
                 if (j < m_MatrixLength - 1)
-                    m_TileMatrix[i, j].SetTile(TILE_DIRECTION.Right, m_TileMatrix[i, j + 1]);
+                    m_TileMatrix[i, j].SetTile(DIRECTION.Right, m_TileMatrix[i, j + 1]);
 
             }
         }

@@ -2,20 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TILE_DIRECTION
-{
-    Invalid,
-    Up,
-    Down,
-    Left,
-    Right
-}
-
 public class Tile : MonoBehaviour, IBeat
 {
     public Sprite m_LightSprite;
     public Sprite m_DarkSprite;
-    Dictionary<TILE_DIRECTION, Tile> m_Tiles = null;
+    Dictionary<DIRECTION, Tile> m_Tiles = null;
     List<AboveTileObject> m_ContainedObjects = null;
     BEAT_PARITY m_TileParity;
     int m_Elevation = -1;
@@ -24,11 +15,11 @@ public class Tile : MonoBehaviour, IBeat
     void Awake()
     {
         m_ContainedObjects = new List<AboveTileObject>();
-        m_Tiles = new Dictionary<TILE_DIRECTION, Tile>();
-        m_Tiles.Add(TILE_DIRECTION.Up, null);
-        m_Tiles.Add(TILE_DIRECTION.Down, null);
-        m_Tiles.Add(TILE_DIRECTION.Left, null);
-        m_Tiles.Add(TILE_DIRECTION.Right, null);
+        m_Tiles = new Dictionary<DIRECTION, Tile>();
+        m_Tiles.Add(DIRECTION.Up, null);
+        m_Tiles.Add(DIRECTION.Down, null);
+        m_Tiles.Add(DIRECTION.Left, null);
+        m_Tiles.Add(DIRECTION.Right, null);
 
         BeatMaster.instance.SubscribeToBeat(gameObject.GetComponent<IBeat>());
     }
@@ -59,12 +50,12 @@ public class Tile : MonoBehaviour, IBeat
         return null;
     }
 
-    public void SetTile(TILE_DIRECTION _tileDirection, Tile _tile)
+    public void SetTile(DIRECTION _tileDirection, Tile _tile)
     {
         m_Tiles[_tileDirection] = _tile;
     }
 
-    public Tile GetTile(TILE_DIRECTION _tileDirection)
+    public Tile GetTile(DIRECTION _tileDirection)
     {
         return m_Tiles[_tileDirection];
     }

@@ -34,6 +34,9 @@ public class Player : AboveTileObject
     int m_MovementBeat;
     Vector3 m_NewPosition;
 
+    //Work in progress
+    Weapon m_Weapon = new Axe();
+
     //shitty practice
     public Transform m_AnimationTransform;
     float m_OldY;
@@ -65,19 +68,23 @@ public class Player : AboveTileObject
     {
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Moving(m_CurrentTile.GetTile(TILE_DIRECTION.Down));
+            m_MovementDirection = DIRECTION.Down;
+            Moving(m_CurrentTile.GetTile(DIRECTION.Down));
         }
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            Moving(m_CurrentTile.GetTile(TILE_DIRECTION.Up));
+            m_MovementDirection = DIRECTION.Up;
+            Moving(m_CurrentTile.GetTile(DIRECTION.Up));
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            Moving(m_CurrentTile.GetTile(TILE_DIRECTION.Left));
+            m_MovementDirection = DIRECTION.Left;
+            Moving(m_CurrentTile.GetTile(DIRECTION.Left));
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            Moving(m_CurrentTile.GetTile(TILE_DIRECTION.Right));
+            m_MovementDirection = DIRECTION.Right;
+            Moving(m_CurrentTile.GetTile(DIRECTION.Right));
         }
     }
 
@@ -87,10 +94,13 @@ public class Player : AboveTileObject
         {
             return;
         }
-
         if (_nextTile.Contains<Wall>() != null)
         {
             _nextTile.Contains<Wall>().GetComponent<Wall>().Dig(1);
+            return;
+        }
+        if (Attack() == true) 
+        {
             return;
         }
         m_CurrentTile.RemoveFromTile(GetComponent<AboveTileObject>());
@@ -100,7 +110,13 @@ public class Player : AboveTileObject
         m_NewPosition = new Vector3(new_position.x, new_position.y, -2f);
         m_MovementStatus = MOVEMENT_STATUS.MovingAnimation;
         m_OldY = m_AnimationTransform.position.y;
+        UpdatePlayerDirection();
 
+        NotifySubscribers();
+    }
+
+    void UpdatePlayerDirection()
+    {
         if (m_NewPosition.x > transform.position.x)
         {
             m_MovementDirection = DIRECTION.Right;
@@ -113,7 +129,7 @@ public class Player : AboveTileObject
         if (m_NewPosition.x < transform.position.x)
         {
             m_MovementDirection = DIRECTION.Left;
-            if(m_Facing == DIRECTION.Right)
+            if (m_Facing == DIRECTION.Right)
             {
                 m_Facing = DIRECTION.Left;
                 transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
@@ -127,18 +143,18 @@ public class Player : AboveTileObject
         {
             m_MovementDirection = DIRECTION.Down;
         }
-
-        NotifySubscribers();
     }
 
     bool CheckCanMove()
     {
         if(m_MovementStatus == MOVEMENT_STATUS.MovingAnimation)
         {
+            m_MovementDirection = DIRECTION.None;
             return false;
         }
         if (m_MovementStatus == MOVEMENT_STATUS.Timeout)
         {
+            m_MovementDirection = DIRECTION.None;
             MissedBeat();
             return false;
         }
@@ -152,6 +168,7 @@ public class Player : AboveTileObject
         m_MovementBeat++;
         if (m_MovementBeat - BeatMaster.instance.GetBeatNumber() >= 1)
         {
+            m_MovementDirection = DIRECTION.None;
             MissedBeat();
             return false;
         }
@@ -267,6 +284,60 @@ public class Player : AboveTileObject
     public void SetTileGenerator(TileGenerator _generatorReference)
     {
         m_TileGenerator = _generatorReference;
+    }
+
+    bool Attack()
+    {
+        bool attacked = false;
+        List<Tile> tileList = new List<Tile>();
+        Debug.Log(m_MovementDirection);
+        foreach(KeyValuePair<int,int> pair in m_Weapon.GetAttackDictionary()[m_MovementDirection])
+        {
+            tileList.Add(GetTileFromPair(pair));
+        }
+
+        foreach(Tile tile in tileList)
+        {
+            AboveTileObject enemy = tile.Contains<Enemy>();
+            if(enemy != null)
+            {
+                attacked = true;
+                enemy.DestroyThis();
+            }
+        }
+
+        return attacked;
+    }
+
+    Tile GetTileFromPair(KeyValuePair<int, int> _pair)
+    {
+        Tile returnTile = m_CurrentTile;
+        DIRECTION vertical = DIRECTION.Up;
+        DIRECTION horizontal = DIRECTION.Right;
+        int verticalInt = _pair.Key;
+        int horizontalInt = _pair.Value;
+
+        if (verticalInt < 0)
+        {
+            verticalInt *= -1;
+            vertical = DIRECTION.Down;
+        }
+        if (horizontalInt < 0)
+        {
+            horizontalInt *= -1;
+            horizontal = DIRECTION.Left;
+        }
+
+        for (int i = 1; i <= verticalInt; i++)
+        {
+            returnTile = returnTile.GetTile(vertical);
+        }
+        for (int i = 1; i <= horizontalInt; i++)
+        {
+            returnTile = returnTile.GetTile(horizontal);
+        }
+
+        return returnTile;
     }
 }
 
