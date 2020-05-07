@@ -10,10 +10,13 @@ public class Tile : MonoBehaviour, IBeat
     List<AboveTileObject> m_ContainedObjects = null;
     BEAT_PARITY m_TileParity;
     int m_Elevation = -1;
+    public FOG_STATUS m_FogStatus;
 
     // Start is called before the first frame update
     void Awake()
     {
+        m_FogStatus = FOG_STATUS.Unexplored;
+        GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
         m_ContainedObjects = new List<AboveTileObject>();
         m_Tiles = new Dictionary<DIRECTION, Tile>();
         m_Tiles.Add(DIRECTION.Up, null);
@@ -28,6 +31,7 @@ public class Tile : MonoBehaviour, IBeat
     {
         m_ContainedObjects.Add(_objectToAdd);
         _objectToAdd.SetTileReference(gameObject.GetComponent<Tile>());
+        _objectToAdd.SetFogStatus(m_FogStatus);
     }
 
     public void RemoveFromTile(AboveTileObject _objetToRemove)
@@ -77,6 +81,28 @@ public class Tile : MonoBehaviour, IBeat
         else
         {
             spriteRenderer.sprite = m_LightSprite;
+        }
+    }
+
+    public void SetFogStatus(FOG_STATUS _status)
+    {
+        m_FogStatus = _status;
+        foreach(AboveTileObject aboveObject in m_ContainedObjects)
+        {
+            aboveObject.SetFogStatus(m_FogStatus);
+        }
+
+        switch (m_FogStatus)
+        {
+            case FOG_STATUS.Unexplored:
+                GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
+                break;
+            case FOG_STATUS.Explored:
+                GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f);
+                break;
+            case FOG_STATUS.InVision:
+                GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
+                break;
         }
     }
 }
