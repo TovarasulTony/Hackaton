@@ -23,6 +23,7 @@ public enum DIRECTION
 
 public class Player : AboveTileObject
 {
+    Tile m_OldTile;
     private TileGenerator m_TileGenerator;
     List<IPlayerSubscriber> m_SubscriberList;
     //bool m_IsMoving = false;
@@ -48,13 +49,17 @@ public class Player : AboveTileObject
     {
         //m_SubscriberList = new List<IPlayerSubscriber>(); This is shitty; Trebuie un loader
         m_CurrentTile = m_TileGenerator.GetStartingTile();
+        m_OldTile = m_CurrentTile;
         Vector3 new_position = m_CurrentTile.transform.position;
         transform.position = new Vector3(new_position.x, new_position.y, -2f);
 
         PlayerAnimation playerAnimation = new PlayerAnimation();
         playerAnimation.SetPlayerReference(GetComponent<Player>());
-
         mBehaviorsList.Add(playerAnimation);
+
+        FogOfWar fogOfWar = new FogOfWar();
+        fogOfWar.SetPlayerReference(GetComponent<Player>());
+        mBehaviorsList.Add(fogOfWar);
     }
 
     protected override void FixedUpdateActor()
@@ -106,6 +111,7 @@ public class Player : AboveTileObject
         {
             return;
         }
+        m_OldTile = m_CurrentTile;
         m_CurrentTile.RemoveFromTile(GetComponent<AboveTileObject>());
         m_CurrentTile = _nextTile;
         m_CurrentTile.AddToTile(GetComponent<AboveTileObject>());
@@ -238,7 +244,7 @@ public class Player : AboveTileObject
         Debug.Log(m_MovementDirection);
         foreach(KeyValuePair<int,int> pair in m_Weapon.GetAttackDictionary()[m_MovementDirection])
         {
-            tileList.Add(GetTileFromPair(pair));
+            tileList.Add(GetTileFromPair(pair, m_CurrentTile));
         }
 
         foreach(Tile tile in tileList)
@@ -253,10 +259,10 @@ public class Player : AboveTileObject
 
         return attacked;
     }
-
-    Tile GetTileFromPair(KeyValuePair<int, int> _pair)
+    //hmm poate trebuie schimbata locatia acestei functii faine; poate nu pt ca tine de player idk must consult better
+    public Tile GetTileFromPair(KeyValuePair<int, int> _pair, Tile _startingTile)
     {
-        Tile returnTile = m_CurrentTile;
+        Tile returnTile = _startingTile;
         DIRECTION vertical = DIRECTION.Up;
         DIRECTION horizontal = DIRECTION.Right;
         int verticalInt = _pair.Key;
@@ -313,6 +319,11 @@ public class Player : AboveTileObject
     public void SetMovementStatus(MOVEMENT_STATUS _status)
     {
         m_MovementStatus = _status;
+    }
+
+    public Tile GetOldTile()
+    {
+        return m_OldTile;
     }
 }
 

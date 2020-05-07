@@ -246,7 +246,7 @@ public class TileGenerator : MonoBehaviour
             {
                 spriteList = m_WallSpriteListT3;
             }
-            wallSpriteRenderer.sprite = spriteList[Random.Range(0,spriteList.Count-1)];
+            wallSpriteRenderer.sprite = spriteList[Random.Range(0,spriteList.Count)];
         }
         
         prefab_wall.transform.parent = m_MapGameObject.transform;
