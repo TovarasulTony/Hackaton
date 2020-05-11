@@ -241,7 +241,6 @@ public class Player : AboveTileObject
     {
         bool attacked = false;
         List<Tile> tileList = new List<Tile>();
-        Debug.Log(m_MovementDirection);
         foreach(KeyValuePair<int,int> pair in m_Weapon.GetAttackDictionary()[m_MovementDirection])
         {
             tileList.Add(GetTileFromPair(pair, m_CurrentTile));

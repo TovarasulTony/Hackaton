@@ -26,6 +26,7 @@ public class TileGenerator : MonoBehaviour
     STRUCTURE_TYPE[,] m_MapMatrix;
     int[,] m_ReducedMatrix;
     private Tile m_StartingTile;
+    private Tile m_EnemyTile;
     int m_MatrixLength = 30 ;
 
     int m_ShopX;
@@ -193,6 +194,11 @@ public class TileGenerator : MonoBehaviour
                     Vector3 position_wall = new Vector3((float)j, (float)i + 0.5f, -10f + 0.1f * i);
                     CreateWall( prefab_tile, position_wall, Quaternion.identity, m_ShopWallPrefab);
                 }
+                
+                if (i == m_ShopX + 3 && j == m_ShopY)
+                {
+                    m_EnemyTile = prefab_tile;
+                }
 
                 if (i == m_ShopX && j == m_ShopY)
                 {
@@ -256,5 +262,10 @@ public class TileGenerator : MonoBehaviour
     public Tile GetStartingTile()
     {
         return m_StartingTile;
+    }
+
+    public Tile GetEnemyTile()
+    {
+        return m_EnemyTile;
     }
 }

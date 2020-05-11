@@ -41,7 +41,6 @@ public class CameraFollow : MonoBehaviour, IPlayerSubscriber
                 {
                     m_Direction = DIRECTION.None;
                     transform.position = m_TargetPosition;
-                    Debug.Log(debugTime);
                     debugTime = 0;
                 }
                 break;
@@ -51,7 +50,6 @@ public class CameraFollow : MonoBehaviour, IPlayerSubscriber
                 {
                     m_Direction = DIRECTION.None;
                     transform.position = m_TargetPosition;
-                    Debug.Log(debugTime);
                     debugTime = 0;
                 }
                 break;
@@ -61,7 +59,6 @@ public class CameraFollow : MonoBehaviour, IPlayerSubscriber
                 {
                     m_Direction = DIRECTION.None;
                     transform.position = m_TargetPosition;
-                    Debug.Log(debugTime);
                     debugTime = 0;
                 }
                 break;
@@ -71,7 +68,6 @@ public class CameraFollow : MonoBehaviour, IPlayerSubscriber
                 {
                     m_Direction = DIRECTION.None;
                     transform.position = m_TargetPosition;
-                    Debug.Log(debugTime);
                     debugTime = 0;
                 }
                 break;
