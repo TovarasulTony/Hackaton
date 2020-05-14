@@ -2,16 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-enum STRUCTURE_TYPE
-{
-    Invalid,
-    Wall,
-    Room,
-    Shop,
-    Tile,
-    ShopWall
-}
-
+//Old shit
+/*
 public class TileGenerator : MonoBehaviour
 {
     public Tile m_TilePrefab;
@@ -100,7 +92,7 @@ public class TileGenerator : MonoBehaviour
             }
         }
     }
-    /*
+    
     void ReducedMatrix(int _rommSize)
     {
         m_ReducedMatrix = new int[m_MatrixLength / _rommSize, m_MatrixLength / _rommSize];
@@ -127,7 +119,7 @@ public class TileGenerator : MonoBehaviour
             }
         }
     }
-    */
+    
     void SetupShop()
     {
         int min_range = 6;
@@ -269,3 +261,4 @@ public class TileGenerator : MonoBehaviour
         return m_EnemyTile;
     }
 }
+*/

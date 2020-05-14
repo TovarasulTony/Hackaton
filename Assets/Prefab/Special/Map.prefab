@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4241567978183757592}
-  - component: {fileID: 4241567978183757593}
+  - component: {fileID: 8362579976417032005}
+  - component: {fileID: 4252766574844719556}
   m_Layer: 0
-  m_Name: TileGenerator
+  m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4241567978183757593
+--- !u!114 &8362579976417032005
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,7 +41,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 4241567978183757598}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3919f74698d9de54aaca66d15f2528b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a6a7e45842e15944bc3e1791f07206e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4252766574844719556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4241567978183757598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e59ffa87a64736c43873437a867e8c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_TilePrefab: {fileID: 6904679284663283708, guid: b5079c77dcb2f8544869755ed9e1254c,
@@ -56,6 +69,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fbc81daf25a7ce04f88e84edc1767bbe, type: 3}
   - {fileID: 21300000, guid: dd4c952ee5f75f04d890663dc1c0a75d, type: 3}
   - {fileID: 21300000, guid: ee3b6b167bb14b6419c88257a08cbec0, type: 3}
+  - {fileID: 21300000, guid: 0ad1c450d34c3e64b815c24edb1103c1, type: 3}
   - {fileID: 21300000, guid: 0ad1c450d34c3e64b815c24edb1103c1, type: 3}
   - {fileID: 21300000, guid: 0881d52b92ab1914ca7d7ecc39154a02, type: 3}
   - {fileID: 21300000, guid: 5aa39a360289dc0448d288dac5a39b82, type: 3}
