@@ -15,7 +15,7 @@ public class FogOfWar : GenericBehavior, IPlayerSubscriber
     List<KeyValuePair<int, int>> m_LightCoordinatesList;
     Player m_PlayerReference;
 
-    public void SetPlayerReference(Player _reference)
+    public FogOfWar(Player _reference)
     {
         m_PlayerReference = _reference;
         m_PlayerReference.Subscribe(this);

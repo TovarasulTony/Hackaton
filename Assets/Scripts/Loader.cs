@@ -6,20 +6,18 @@ public class Loader : MonoBehaviour
 {
     public BeatMaster m_BeatMaster;
     public Player m_Player;
-    public TileGenerator m_TileGenerator;
+    public Map m_Map;
     public CameraFollow m_Camera;
     public EnemyManager m_EnemyManager;
 
     void Start()
     {
         m_BeatMaster = Instantiate(m_BeatMaster);
-        m_TileGenerator = Instantiate(m_TileGenerator);
+        m_Map = Instantiate(m_Map);
         m_Player = Instantiate(m_Player);
         m_Camera = Instantiate(m_Camera);
         m_EnemyManager = Instantiate(m_EnemyManager);
-
-        m_Player.SetTileGenerator(m_TileGenerator);
-        m_EnemyManager.SetTileGenerator(m_TileGenerator);
+        
         m_Camera.SetPlayerReference(m_Player);
     }
 }

@@ -24,7 +24,6 @@ public enum DIRECTION
 public class Player : AboveTileObject
 {
     Tile m_OldTile;
-    private TileGenerator m_TileGenerator;
     List<IPlayerSubscriber> m_SubscriberList;
     //bool m_IsMoving = false;
     //bool m_Timeout = false;
@@ -48,7 +47,7 @@ public class Player : AboveTileObject
     protected override void StartActor()
     {
         //m_SubscriberList = new List<IPlayerSubscriber>(); This is shitty; Trebuie un loader
-        m_CurrentTile = m_TileGenerator.GetStartingTile();
+        m_CurrentTile = Map.instance.GetTile("Starting");
         m_OldTile = m_CurrentTile;
         Vector3 new_position = m_CurrentTile.transform.position;
         transform.position = new Vector3(new_position.x, new_position.y, -2f);
@@ -57,8 +56,8 @@ public class Player : AboveTileObject
         playerAnimation.SetPlayerReference(GetComponent<Player>());
         mBehaviorsList.Add(playerAnimation);
 
-        FogOfWar fogOfWar = new FogOfWar();
-        fogOfWar.SetPlayerReference(GetComponent<Player>());
+        FogOfWar fogOfWar = new FogOfWar(GetComponent<Player>());
+        //fogOfWar.SetPlayerReference(GetComponent<Player>());
         mBehaviorsList.Add(fogOfWar);
     }
 
@@ -230,11 +229,6 @@ public class Player : AboveTileObject
         {
             subscriber.OnPlayerMovement(m_MovementDirection);
         }
-    }
-
-    public void SetTileGenerator(TileGenerator _generatorReference)
-    {
-        m_TileGenerator = _generatorReference;
     }
 
     bool Attack()
