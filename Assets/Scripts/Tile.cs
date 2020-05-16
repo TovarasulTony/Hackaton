@@ -54,7 +54,10 @@ public class Tile : MonoBehaviour, IBeat
         }
         return null;
     }
-
+    public int GetNumberOfElements()
+    {
+        return m_ContainedObjects.Count;
+    }
     public void SetTile(DIRECTION _tileDirection, Tile _tile)
     {
         m_Tiles[_tileDirection] = _tile;
