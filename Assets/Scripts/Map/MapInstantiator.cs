@@ -15,30 +15,28 @@ public class MapInstantiator
     int m_ShopX;
     int m_ShopY;
     GameObject m_MapGameObject;
-    Map m_MapReference;
     private Tile[,] m_TileMatrix;
     private Tile m_StartingTile;
     private Tile m_EnemyTile;
 
 
-    public MapInstantiator(Map _map)
+    public MapInstantiator()
     {
-        m_MapReference = _map;
-        m_MatrixLength = m_MapReference.GetMatrixLength();
+        m_MatrixLength = Map.instance.GetMatrixLength();
         m_MapGameObject = new GameObject("Map");
         m_TileMatrix = new Tile[m_MatrixLength, m_MatrixLength];
 
         SetupReferences();
-        InstantiateMap(m_MapReference.GetStructureMap());
+        InstantiateMap(Map.instance.GetStructureMap());
         SetTileNeighbour();
 
-        m_MapReference.AddSpecialTile("Starting", m_StartingTile);
-        m_MapReference.AddSpecialTile("Enemy", m_EnemyTile);
+        Map.instance.AddSpecialTile("Starting", m_StartingTile);
+        Map.instance.AddSpecialTile("Enemy", m_EnemyTile);
     }
 
     void SetupReferences()
     {
-        MapReferences spriteLocation = m_MapReference.GetComponent<MapReferences>();
+        MapReferences spriteLocation = Map.instance.GetComponent<MapReferences>();
         m_TilePrefab = spriteLocation.m_TilePrefab;
         m_WallPrefab = spriteLocation.m_WallPrefab;
         m_WallSpriteListT1 = spriteLocation.m_WallSpriteListT1;
@@ -46,7 +44,7 @@ public class MapInstantiator
         m_WallSpriteListT3 = spriteLocation.m_WallSpriteListT3;
         m_ShopWallPrefab = spriteLocation.m_ShopWallPrefab;
 
-        KeyValuePair<int, int> shoopCoordinates = m_MapReference.GetCoordinates("Shop");
+        KeyValuePair<int, int> shoopCoordinates = Map.instance.GetCoordinates("Shop");
         m_ShopX = shoopCoordinates.Key;
         m_ShopY = shoopCoordinates.Value;
     }
@@ -65,6 +63,7 @@ public class MapInstantiator
                 prefab_tile.SetTile(DIRECTION.Down, prefab_tile);
                 prefab_tile.SetTile(DIRECTION.Left, prefab_tile);
                 prefab_tile.SetTile(DIRECTION.Right, prefab_tile);
+                prefab_tile.SetCoordinates(i, j);
 
                 prefab_tile.SetParity((i + j) % 2 == 0 ? BEAT_PARITY.Even : BEAT_PARITY.Odd);
 

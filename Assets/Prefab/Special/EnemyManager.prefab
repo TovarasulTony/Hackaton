@@ -42,5 +42,5 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d7cb8c8604479e47bbcc31a9483db70, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   m_Enemy: {fileID: 5697071957850148984, guid: ee13a77b2f5ca2a4585dac4be69b7865, type: 3}

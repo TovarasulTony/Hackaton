@@ -19,5 +19,6 @@ public class Loader : MonoBehaviour
         m_EnemyManager = Instantiate(m_EnemyManager);
         
         m_Camera.SetPlayerReference(m_Player);
+        m_Map.SetPlayerReference(m_Player);
     }
 }

@@ -11,6 +11,7 @@ public class Tile : MonoBehaviour, IBeat
     BEAT_PARITY m_TileParity;
     int m_Elevation = -1;
     public FOG_STATUS m_FogStatus;
+    KeyValuePair<int, int> m_Coordinates;
 
     // Start is called before the first frame update
     void Awake()
@@ -107,5 +108,20 @@ public class Tile : MonoBehaviour, IBeat
                 GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
                 break;
         }
+    }
+
+    public void SetCoordinates(int _x, int _y)
+    {
+        m_Coordinates = new KeyValuePair<int, int>(_x, _y);
+    }
+
+    public int GetX()
+    {
+        return m_Coordinates.Key;
+    }
+
+    public int GetY()
+    {
+        return m_Coordinates.Value;
     }
 }
