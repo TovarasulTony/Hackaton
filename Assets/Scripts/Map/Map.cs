@@ -15,6 +15,7 @@ public enum STRUCTURE_TYPE
 public class Map : MonoBehaviour
 {
     public static Map instance = null;
+    Pathfinder m_Pathfinder;
     MapGenerator m_MapGenerator;
     MapInstantiator m_MapInstantiator;
 
@@ -23,6 +24,7 @@ public class Map : MonoBehaviour
 
     STRUCTURE_TYPE[,] m_StructureMap;
     int[,] m_PlayerTrakingMap;
+    Tile[,] m_TileMatrix;
 
     int m_MatrixLength = 30;
     private Tile m_StartingTile;
@@ -38,8 +40,9 @@ public class Map : MonoBehaviour
         instance = gameObject.GetComponent<Map>();
         m_ImportantTiles = new Dictionary<string, Tile>();
         m_SpecialCoordinates = new Dictionary<string, KeyValuePair<int, int>>();
-        m_MapGenerator = new MapGenerator(GetComponent<Map>());
-        m_MapInstantiator = new MapInstantiator(GetComponent<Map>());
+        m_MapGenerator = new MapGenerator();
+        m_MapInstantiator = new MapInstantiator();
+        m_Pathfinder = new Pathfinder();
     }
 
     public int GetMatrixLength()
@@ -75,5 +78,20 @@ public class Map : MonoBehaviour
     public Tile GetTile(string _tileName)
     {
         return m_ImportantTiles[_tileName];
+    }
+
+    public void SetPlayerReference(Player _player)
+    {
+        m_Pathfinder.SetPlayerReference(_player);
+    }
+
+    public void SetTileMatrix(Tile[,] _matrix)
+    {
+        m_TileMatrix = _matrix;
+    }
+
+    public int GetPlayerDistance(Tile _tile)
+    {
+        return m_Pathfinder.GetPlayerDistance(_tile);
     }
 }

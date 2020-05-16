@@ -6,7 +6,6 @@ public class MapGenerator
 {
     int m_MatrixLength;
     STRUCTURE_TYPE[,] m_MapMatrix;
-    Map m_MapReference;
 
     int m_ShopX;
     int m_ShopY;
@@ -14,17 +13,16 @@ public class MapGenerator
     //optimisation much?
     //int[,] m_ReducedMatrix;
 
-    public MapGenerator(Map _reference)
+    public MapGenerator()
     {
-        m_MapReference = _reference;
-        m_MatrixLength = m_MapReference.GetMatrixLength();
+        m_MatrixLength = Map.instance.GetMatrixLength();
         m_MapMatrix = new STRUCTURE_TYPE[m_MatrixLength, m_MatrixLength];
 
         SetupMatix();
         SetupShop();
         SetupRooms();
 
-        m_MapReference.SetStructureMap(m_MapMatrix);
+        Map.instance.SetStructureMap(m_MapMatrix);
     }
 
     void SetupShop()
@@ -37,7 +35,7 @@ public class MapGenerator
 
         m_ShopX = shop_X;
         m_ShopY = shop_Y;
-        m_MapReference.AddCoordinates("Shop", new KeyValuePair<int, int>(m_ShopX, m_ShopY));
+        Map.instance.AddCoordinates("Shop", new KeyValuePair<int, int>(m_ShopX, m_ShopY));
 
 
         for (int i = shop_X - 4; i <= shop_X + 4; ++i)

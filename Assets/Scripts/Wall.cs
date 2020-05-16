@@ -9,6 +9,7 @@ public class Wall : AboveTileObject
     {
         if (_digMight >= m_WallMight)
         {
+            m_CurrentTile.RemoveFromTile(GetComponent<Wall>());
             DestroyThis();
         }
     }
