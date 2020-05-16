@@ -12,5 +12,9 @@ public class Enemy : AboveTileObject
         SetFogStatus(FOG_STATUS.Unexplored);
         Vector3 new_position = m_CurrentTile.transform.position;
         transform.position = new Vector3(new_position.x, new_position.y, -2f);
+
+        StartEnemy();
     }
+
+    protected virtual void StartEnemy() { }
 }
