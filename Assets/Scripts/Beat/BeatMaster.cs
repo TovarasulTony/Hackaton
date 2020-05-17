@@ -19,6 +19,7 @@ public class BeatMaster : MonoBehaviour
     //Beat
     BEAT_PARITY m_BeatParity;
     int m_CurrentBeat = 0;
+    float m_TimeToNextBeat = 0;
     //float m_Time = 0;
     float m_TimeFixed = 0;
 
@@ -62,7 +63,8 @@ public class BeatMaster : MonoBehaviour
             return;
         }
         m_CurrentBeat++;
-        ChangeBeatparity();
+        m_TimeToNextBeat = m_BeatsList[m_CurrentBeat] - m_BeatsList[m_CurrentBeat - 1];
+        ChangeBeatParity();
 
         foreach (IBeat subscrieber in m_ObserverList)
         {
@@ -85,7 +87,7 @@ public class BeatMaster : MonoBehaviour
         return m_BeatParity;
     }
 
-    void ChangeBeatparity()
+    void ChangeBeatParity()
     {
         m_BeatParity = m_BeatParity == BEAT_PARITY.Even ? BEAT_PARITY.Odd : BEAT_PARITY.Even;
     }
@@ -93,5 +95,10 @@ public class BeatMaster : MonoBehaviour
     public int GetBeatNumber()
     {
         return m_CurrentBeat;
+    }
+
+    public float GetTimeToNextBeat()
+    {
+        return m_TimeToNextBeat;
     }
 }

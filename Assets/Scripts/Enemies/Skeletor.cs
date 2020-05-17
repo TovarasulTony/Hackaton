@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-enum SKELETOR_STATE
+public enum SKELETOR_STATE
 {
     Invalid,
     Move,
@@ -12,11 +12,17 @@ enum SKELETOR_STATE
 public class Skeletor : Enemy, IBeat
 {
     SKELETOR_STATE m_State;
+    DIRECTION m_MovementDirection;
+    Vector3 m_NewPosition;
 
     protected override void StartEnemy()
     {
         m_State = SKELETOR_STATE.Pause;
         BeatMaster.instance.SubscribeToBeat(GetComponent<IBeat>());
+
+        SkeletorAnimation skeletorAnimation = new SkeletorAnimation();
+        skeletorAnimation.SetSkeletorReference(GetComponent<Skeletor>());
+        mBehaviorsList.Add(skeletorAnimation);
     }
 
     public void OnBeat()
@@ -38,6 +44,7 @@ public class Skeletor : Enemy, IBeat
         {
             minDistance = distance;
             nextTile = m_CurrentTile.GetTile(DIRECTION.Up);
+            m_MovementDirection = DIRECTION.Up;
         }
         distance = Map.instance.GetPlayerDistance(m_CurrentTile.GetTile(DIRECTION.Down));
        // Debug.Log(distance);
@@ -45,6 +52,7 @@ public class Skeletor : Enemy, IBeat
         {
             minDistance = distance;
             nextTile = m_CurrentTile.GetTile(DIRECTION.Down);
+            m_MovementDirection = DIRECTION.Down;
         }
         distance = Map.instance.GetPlayerDistance(m_CurrentTile.GetTile(DIRECTION.Left));
        // Debug.Log(distance);
@@ -52,6 +60,7 @@ public class Skeletor : Enemy, IBeat
         {
             minDistance = distance;
             nextTile = m_CurrentTile.GetTile(DIRECTION.Left);
+            m_MovementDirection = DIRECTION.Left;
         }
         distance = Map.instance.GetPlayerDistance(m_CurrentTile.GetTile(DIRECTION.Right));
        // Debug.Log(distance);
@@ -59,6 +68,7 @@ public class Skeletor : Enemy, IBeat
         {
             minDistance = distance;
             nextTile = m_CurrentTile.GetTile(DIRECTION.Right);
+            m_MovementDirection = DIRECTION.Right;
         }
         if(nextTile == null)
         {
@@ -72,7 +82,7 @@ public class Skeletor : Enemy, IBeat
         m_CurrentTile.RemoveFromTile(GetComponent<AboveTileObject>());
         m_CurrentTile = nextTile;
         m_CurrentTile.AddToTile(GetComponent<AboveTileObject>());
-        transform.position = new Vector3(m_CurrentTile.transform.position.x, m_CurrentTile.transform.position.y, transform.position.z);
+        m_NewPosition = new Vector3(m_CurrentTile.transform.position.x, m_CurrentTile.transform.position.y, transform.position.z);
     }
 
     void NextState()
@@ -89,5 +99,20 @@ public class Skeletor : Enemy, IBeat
                 m_State = SKELETOR_STATE.Invalid;
                 break;
         }
+    }
+
+    public SKELETOR_STATE GetState()
+    {
+        return m_State;
+    }
+
+    public Vector3 GetNewPosition()
+    {
+        return m_NewPosition;
+    }
+
+    public DIRECTION GetDirection()
+    {
+        return m_MovementDirection;
     }
 }

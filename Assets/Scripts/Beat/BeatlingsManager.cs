@@ -38,7 +38,7 @@ public class BeatlingsManager : MonoBehaviour
 
 
         float max_time = m_Time > m_TimeFixed ? m_Time : m_TimeFixed;
-        float beatling_distance = m_BeatsList[m_CurrentBeat] - max_time;
+        float beatling_distance = (float)m_BeatsList[m_CurrentBeat] - max_time;
 
         InstantiateBeatling(BEATLING_PARITY.Left, m_HeartReference.transform.position.x - (beatling_distance * 5));
         InstantiateBeatling(BEATLING_PARITY.Right, m_HeartReference.transform.position.x + (beatling_distance * 5));
