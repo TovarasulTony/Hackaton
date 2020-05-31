@@ -11,7 +11,8 @@ public class Tile : MonoBehaviour, IBeat
     BEAT_PARITY m_TileParity;
     int m_Elevation = -1;
     public FOG_STATUS m_FogStatus;
-    KeyValuePair<int, int> m_Coordinates;
+    [SerializeField]
+    public KeyValuePair<int, int> m_Coordinates;
 
     // Start is called before the first frame update
     void Awake()

@@ -43,7 +43,7 @@ public class PlayerAnimation : GenericBehavior, IBeat, IPlayerSubscriber
 
     public void OnBeat()
     {
-        Debug.Log(0.065f / BeatMaster.instance.GetTimeToNextBeat());
+        //Debug.Log(0.065f / BeatMaster.instance.GetTimeToNextBeat());
         //Debug.Log(m_PlayerReference.transform.Find("Animation").GetComponent<Animator>().speed);
         //Debug.Log((0.04f/BeatMaster.instance.GetTimeToNextBeat()));
         //Debug.Log(m_PlayerReference.transform.Find("Animation").GetComponent<Animator>().speed);
