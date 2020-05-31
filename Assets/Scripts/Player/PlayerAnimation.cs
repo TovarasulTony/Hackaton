@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimation : GenericBehavior
+public class PlayerAnimation : GenericBehavior, IBeat, IPlayerSubscriber
 {
     Player m_PlayerReference;
     MOVEMENT_STATUS m_MovementStatus;
@@ -18,6 +18,9 @@ public class PlayerAnimation : GenericBehavior
         m_PlayerReference = _reference;
         m_PlayerObject = m_PlayerReference.transform;
         m_PlayerAnimatorObject = m_PlayerReference.GetAnimatorTransform();
+
+        m_PlayerReference.Subscribe(this);
+        m_PlayerReference.transform.Find("Animation").GetComponent<Animator>().SetFloat("jumpSpeed", 0.067f / 0.14f);
     }
 
     protected override void FixedUpdateMyBehavior()
@@ -26,6 +29,30 @@ public class PlayerAnimation : GenericBehavior
         m_MovementDirection = m_PlayerReference.GetDirection();
         m_NewPosition = m_PlayerReference.GetNewPosition();
         MovingAnimation();
+    }
+
+    protected override void StartMyBehavior()
+    {
+        BeatMaster.instance.SubscribeToBeat(this);
+    }
+
+    public void OnPlayerMovement(DIRECTION _direction)
+    {
+        m_PlayerReference.transform.Find("Animation").GetComponent<Animator>().SetTrigger("jump");
+    }
+
+    public void OnBeat()
+    {
+        //Debug.Log(0.065f / BeatMaster.instance.GetTimeToNextBeat());
+        //Debug.Log(m_PlayerReference.transform.Find("Animation").GetComponent<Animator>().speed);
+        //Debug.Log((0.04f/BeatMaster.instance.GetTimeToNextBeat()));
+        //Debug.Log(m_PlayerReference.transform.Find("Animation").GetComponent<Animator>().speed);
+        //Debug.Log(BeatMaster.instance.GetTimeToNextBeat());
+        //m_PlayerReference.transform.Find("Animation").GetComponent<Animator>().SetFloat("time", BeatMaster.instance.GetTimeToNextBeat());
+        //m_PlayerReference.transform.Find("Animation").GetComponent<Animator>().speed = 0.067f / BeatMaster.instance.GetTimeToNextBeat();
+        m_PlayerReference.transform.Find("Animation").GetComponent<Animator>().SetFloat("speed", 0.067f / BeatMaster.instance.GetTimeToNextBeat());
+        //Debug.Log(m_PlayerReference.transform.Find("Animation").GetComponent<Animator>().speed);
+        m_PlayerReference.transform.Find("Animation").GetComponent<Animator>().SetTrigger("animation");
     }
 
     void MovingAnimation()
