@@ -10,6 +10,8 @@ public class Loader : MonoBehaviour
     public CameraFollow m_Camera;
     public EnemyManager m_EnemyManager;
 
+    public List<MonoBehaviour> m_Tests;
+
     void Start()
     {
         m_BeatMaster = Instantiate(m_BeatMaster);
@@ -20,5 +22,10 @@ public class Loader : MonoBehaviour
         
         m_Camera.SetPlayerReference(m_Player);
         m_Map.SetPlayerReference(m_Player);
+
+        foreach(MonoBehaviour test in m_Tests)
+        {
+            Instantiate(test);
+        }
     }
 }
