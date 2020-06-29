@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : AboveTileObject
+public class Enemy : AboveTileObject, IBeat
 {
     protected override void StartActor()
     {
@@ -17,4 +17,12 @@ public class Enemy : AboveTileObject
     }
 
     protected virtual void StartEnemy() { }
+
+    public virtual void OnBeat() { }
+
+    public void DestroyEnemy() {
+
+        BeatMaster.instance.UnsubscribeToBeat(GetComponent<IBeat>());
+        DestroyThis();
+    }
 }

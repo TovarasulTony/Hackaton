@@ -9,7 +9,7 @@ public enum SKELETOR_STATE
     Pause
 }
 
-public class Skeletor : Enemy, IBeat
+public class Skeletor : Enemy
 {
     SKELETOR_STATE m_State;
     DIRECTION m_MovementDirection;
@@ -25,7 +25,7 @@ public class Skeletor : Enemy, IBeat
         mBehaviorsList.Add(skeletorAnimation);
     }
 
-    public void OnBeat()
+    public override void OnBeat()
     {
         if(m_State == SKELETOR_STATE.Move)
         {

@@ -246,7 +246,7 @@ public class Player : AboveTileObject
             if(enemy != null)
             {
                 attacked = true;
-                enemy.DestroyThis();
+                enemy.GetComponent<Enemy>().DestroyEnemy();
             }
         }
 
