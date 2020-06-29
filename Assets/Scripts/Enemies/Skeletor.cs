@@ -38,38 +38,19 @@ public class Skeletor : Enemy, IBeat
     {
         int minDistance = 100;
         Tile nextTile = null;
-        int distance = Map.instance.GetPlayerDistance(m_CurrentTile.GetTile(DIRECTION.Up));
-       // Debug.Log(distance);
-        if (minDistance > distance && distance != -1)
+        int distance;
+
+        foreach (DIRECTION direction in new DIRECTION[] { DIRECTION.Up, DIRECTION.Down, DIRECTION.Left, DIRECTION.Right })
         {
-            minDistance = distance;
-            nextTile = m_CurrentTile.GetTile(DIRECTION.Up);
-            m_MovementDirection = DIRECTION.Up;
+            distance = Map.instance.GetPlayerDistance(m_CurrentTile.GetTile(direction));
+            if (minDistance > distance && distance != -1)
+            {
+                minDistance = distance;
+                nextTile = m_CurrentTile.GetTile(direction);
+                m_MovementDirection = direction;
+            }
         }
-        distance = Map.instance.GetPlayerDistance(m_CurrentTile.GetTile(DIRECTION.Down));
-       // Debug.Log(distance);
-        if (minDistance > distance && distance != -1)
-        {
-            minDistance = distance;
-            nextTile = m_CurrentTile.GetTile(DIRECTION.Down);
-            m_MovementDirection = DIRECTION.Down;
-        }
-        distance = Map.instance.GetPlayerDistance(m_CurrentTile.GetTile(DIRECTION.Left));
-       // Debug.Log(distance);
-        if (minDistance > distance && distance != -1)
-        {
-            minDistance = distance;
-            nextTile = m_CurrentTile.GetTile(DIRECTION.Left);
-            m_MovementDirection = DIRECTION.Left;
-        }
-        distance = Map.instance.GetPlayerDistance(m_CurrentTile.GetTile(DIRECTION.Right));
-       // Debug.Log(distance);
-        if (minDistance > distance && distance != -1)
-        {
-            minDistance = distance;
-            nextTile = m_CurrentTile.GetTile(DIRECTION.Right);
-            m_MovementDirection = DIRECTION.Right;
-        }
+       
         if(nextTile == null)
         {
             return;
