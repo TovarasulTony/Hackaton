@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Axe : Weapon
+public class WideSword : Weapon
 {
-    public Axe()
+    public WideSword()
     {
         List<KeyValuePair<int, int>> upList = new List<KeyValuePair<int, int>>();
         upList.Add(new KeyValuePair<int, int>(1, 0));
-        upList.Add(new KeyValuePair<int, int>(2, -1));
-        upList.Add(new KeyValuePair<int, int>(2, 0));
-        upList.Add(new KeyValuePair<int, int>(2, 1));
+        upList.Add(new KeyValuePair<int, int>(1, -1));
+        upList.Add(new KeyValuePair<int, int>(1, 1));
         m_AttackDictionary.Add(DIRECTION.Up, upList);
 
         CompleteAttackDictionary();
-        m_WeaponType = "axe";
+        m_WeaponType = "wide_sword";
     }
 }

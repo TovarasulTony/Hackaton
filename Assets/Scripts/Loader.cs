@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Loader : MonoBehaviour
 {
+    public Library m_Library;
     public BeatMaster m_BeatMaster;
     public Player m_Player;
     public Map m_Map;
@@ -14,6 +15,7 @@ public class Loader : MonoBehaviour
 
     void Start()
     {
+        m_Library = Instantiate(m_Library);
         m_BeatMaster = Instantiate(m_BeatMaster);
         m_Map = Instantiate(m_Map);
         m_Player = Instantiate(m_Player);

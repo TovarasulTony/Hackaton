@@ -182,12 +182,10 @@ public class MapGenerator
                     minRoom = room.number;
                 }
             }
-            Debug.Log(minRoom + " " + m_RoomsList.Count);
             finishedRooms.Add(m_RoomsList[minRoom]);
             m_RoomsList.Remove(m_RoomsList[minRoom]);
             MakePath(finishedRooms[currentRoom], finishedRooms[minRoom]);
             currentRoom++;
-            Debug.Log(minRoom + " " + m_RoomsList.Count);   
         }
     }
        
