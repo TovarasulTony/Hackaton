@@ -77,6 +77,11 @@ public class BeatMaster : MonoBehaviour
         m_ObserverList.Add(_subscriber);
     }
 
+    public void UnsubscribeToBeat(IBeat _subscriber)
+    {
+        m_ObserverList.Remove(_subscriber);
+    }
+
     public List<float> GetBeatsList()
     {
         return m_BeatsList;
