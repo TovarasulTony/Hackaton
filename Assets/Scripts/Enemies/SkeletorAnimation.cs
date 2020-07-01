@@ -96,4 +96,9 @@ public class SkeletorAnimation : GenericBehavior, IBeat
         m_SkeletorAnimatorObject.position = new Vector3(m_SkeletorAnimatorObject.position.x, m_OldY, m_SkeletorAnimatorObject.position.z);
         m_IsMovingAnimation = false;
     }
+
+    public override void DestroyBehavior()
+    {
+        BeatMaster.instance.UnsubscribeToBeat(this);
+    }
 }

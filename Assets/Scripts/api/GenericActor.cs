@@ -5,6 +5,7 @@ using UnityEngine;
 public class GenericActor : MonoBehaviour
 {
     protected List<GenericBehavior> mBehaviorsList = new List<GenericBehavior>();
+
     // Use this for initialization
     void Start()
     {
@@ -32,6 +33,15 @@ public class GenericActor : MonoBehaviour
         {
             mBehaviorsList[i].FixedUpdateBehavior();
         }
+    }
+
+    protected void DestroyActor()
+    {
+        foreach (GenericBehavior behavior in mBehaviorsList)
+        {
+            behavior.DestroyBehavior();
+        }
+        Destroy(gameObject);
     }
 
     protected virtual void StartActor() { }

@@ -42,6 +42,6 @@ public class AboveTileObject : GenericActor
     public void DestroyThis()
     {
         m_CurrentTile.RemoveFromTile(gameObject.GetComponent<AboveTileObject>());
-        Destroy(gameObject);
+        DestroyActor();
     }
 }
