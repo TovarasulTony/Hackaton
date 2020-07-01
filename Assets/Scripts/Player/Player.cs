@@ -54,7 +54,10 @@ public class Player : AboveTileObject
 
         PlayerAnimation playerAnimation = new PlayerAnimation();
         playerAnimation.SetPlayerReference(GetComponent<Player>());
+        InventoryManagement inventoryManagement = new InventoryManagement(GetComponent<Player>());
+
         mBehaviorsList.Add(playerAnimation);
+        mBehaviorsList.Add(inventoryManagement);
 
         FogOfWar fogOfWar = new FogOfWar(GetComponent<Player>());
         //fogOfWar.SetPlayerReference(GetComponent<Player>());
@@ -282,6 +285,13 @@ public class Player : AboveTileObject
         }
 
         return returnTile;
+    }
+
+    public Weapon Equip(Weapon _weapon)
+    {
+        Weapon weapon = m_Weapon;
+        m_Weapon = _weapon;
+        return weapon;
     }
 
     public Vector3 GetNewPosition()

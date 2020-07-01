@@ -5,6 +5,7 @@ using UnityEngine;
 public class Weapon
 {
     protected Dictionary<DIRECTION, List<KeyValuePair<int, int>>> m_AttackDictionary;
+    protected string m_WeaponType;
 
     public Weapon()
     {
@@ -42,5 +43,10 @@ public class Weapon
     public Dictionary<DIRECTION, List<KeyValuePair<int, int>>> GetAttackDictionary()
     {
         return m_AttackDictionary;
+    }
+
+    public string GetWeaponType()
+    {
+        return m_WeaponType;
     }
 }
