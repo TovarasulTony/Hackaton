@@ -45,7 +45,6 @@ public class Library : MonoBehaviour
 
     public Sprite GetSprite(string _sprite)
     {
-        Debug.Log(_sprite);
         return m_WeaponSpriteDictionary[_sprite];
     }
 
