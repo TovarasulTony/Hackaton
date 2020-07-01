@@ -64,4 +64,7 @@ public class GenericBehavior
 
     protected virtual void LateUpdateMyBehavior()
     { }
+
+    public virtual void DestroyBehavior()
+    { }
 }
