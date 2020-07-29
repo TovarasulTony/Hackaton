@@ -13,14 +13,6 @@ public class GenericBehavior
     //containere
     protected List<GenericBehavior> mBehaviorsList = new List<GenericBehavior>();
 
-    //Poate vrei sa restrictionezi constructorul default?
-
-    //Constructorul bun
-    public GenericBehavior()
-    {
-
-    }
-
     //to be called in Start()
     public void StartBehavior()
     {
@@ -71,5 +63,8 @@ public class GenericBehavior
     { }
 
     protected virtual void LateUpdateMyBehavior()
+    { }
+
+    public virtual void DestroyBehavior()
     { }
 }
