@@ -26,7 +26,7 @@ public class Map : MonoBehaviour
     int[,] m_PlayerTrakingMap;
     Tile[,] m_TileMatrix;
 
-    int m_MatrixLength = 30;
+    int m_MatrixLength = 120;
     private Tile m_StartingTile;
     private Tile m_EnemyTile;
 
@@ -72,6 +72,7 @@ public class Map : MonoBehaviour
 
     public KeyValuePair<int, int> GetCoordinates(string _name)
     {
+        Debug.Log(_name + " hhh");
         return m_SpecialCoordinates[_name];
     }
 

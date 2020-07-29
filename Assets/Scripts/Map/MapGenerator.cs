@@ -2,15 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomStruct
-{
-    public int x;
-    public int y;
-    public int number;
-    public int width;
-    public int heigth;
-}
-
 public class MapGenerator
 {
     //SortedList<int, RoomStruct> m_RoomsList;
@@ -39,7 +30,7 @@ public class MapGenerator
     }
 
     void SetupShop()
-    {
+    {/*
         int min_range = 6;
         int max_range = m_MatrixLength - 6;
 
@@ -69,6 +60,7 @@ public class MapGenerator
         }
         m_MapMatrix[shop_X - 4, shop_Y] = STRUCTURE_TYPE.Tile;
         m_MapMatrix[shop_X, shop_Y] = STRUCTURE_TYPE.Shop;
+        */
     }
 
     void SetupMatix()
@@ -84,64 +76,27 @@ public class MapGenerator
 
     void SetupRooms()
     {
-        int roomsNumber = Random.Range(5, 6);
-        for (int k = 1; k <= roomsNumber; ++k)
+        RoomGenerator roomGenerator = new RoomGenerator(ref m_MapMatrix, m_MatrixLength);
+        //m_RoomsList = roomGenerator.GenerateRooms();
+        roomGenerator.GenerateRooms();
+        /*
+        Dictionary<RoomStruct, RoomStruct> ceva = roomGenerator.Paths();
+
+        foreach (KeyValuePair<RoomStruct, RoomStruct> room in ceva)
         {
-            bool roomOk = false;
-            int roomHeigth = Random.Range(4, 6);
-            int roomWidth = Random.Range(4, 7);
-
-            int room_X = 0;
-            int room_Y = 0;
-
-            int trialCount = 0;
-
-            while (roomOk == false)
+            //MakePath(room.Key, room.Value);
+            /*if(ceva[i] == 0)
             {
-                room_X = Random.Range(5, m_MatrixLength - 5);
-                room_Y = Random.Range(5, m_MatrixLength - 5);
-
-                roomOk = true;
-                for (int i = room_X - (roomHeigth - 1) / 2 - 1; i <= room_X + roomHeigth / 2 + 1; ++i)
-                {
-                    for (int j = room_Y - (roomHeigth - 1) / 2 - 1; j <= room_Y + roomHeigth / 2 + 1; ++j)
-                    {
-                        if (m_MapMatrix[i, j] != STRUCTURE_TYPE.Wall)
-                        {
-                            roomOk = false;
-                        }
-                    }
-                }
-                trialCount++;
-                if (trialCount == 100)
-                {
-                    Debug.Log(trialCount);
-                    roomOk = true;
-                }
+                continue;
             }
-
-            if (trialCount < 100)
-            {
-                RoomStruct room = new RoomStruct();
-                room.x = room_X;
-                room.y = room_Y;
-                room.width = roomWidth;
-                room.heigth = roomHeigth;
-                room.number = k + 1;
-                m_RoomsList.Add(room);
-                for (int i = room_X - (roomHeigth - 1) / 2; i <= room_X + roomHeigth / 2; ++i)
-                {
-                    for (int j = room_Y - (roomWidth - 1) / 2; j <= room_Y + roomWidth / 2; ++j)
-                    {
-                        m_MapMatrix[i, j] = STRUCTURE_TYPE.Tile;
-                    }
-                }
-            }
-        }
+            Debug.Log(i + " " + ceva[i]);
+            MakePath(finishedRooms[currentRoom], finishedRooms[minRoom]);
+        }*/
     }
 
     void SetupPaths()
     {
+        /*
         List<RoomStruct> finishedRooms = new List<RoomStruct>();
         m_RoomsList[0].x -= 5;
         int minDistance = 1000;
@@ -187,6 +142,7 @@ public class MapGenerator
             MakePath(finishedRooms[currentRoom], finishedRooms[minRoom]);
             currentRoom++;
         }
+        */
     }
        
     void MakePath(RoomStruct _first, RoomStruct _second)

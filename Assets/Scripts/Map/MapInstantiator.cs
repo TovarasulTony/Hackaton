@@ -44,9 +44,9 @@ public class MapInstantiator
         m_WallSpriteListT3 = spriteLocation.m_WallSpriteListT3;
         m_ShopWallPrefab = spriteLocation.m_ShopWallPrefab;
 
-        KeyValuePair<int, int> shoopCoordinates = Map.instance.GetCoordinates("Shop");
-        m_ShopX = shoopCoordinates.Key;
-        m_ShopY = shoopCoordinates.Value;
+        //KeyValuePair<int, int> shoopCoordinates = Map.instance.GetCoordinates("Shop");
+        //m_ShopX = shoopCoordinates.Key;
+        //m_ShopY = shoopCoordinates.Value;
     }
 
     void InstantiateMap(STRUCTURE_TYPE[,] _mapMatrix)
