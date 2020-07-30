@@ -12,8 +12,8 @@ public class MapInstantiator
     public Wall m_ShopWallPrefab;
 
     int m_MatrixLength;
-    int m_ShopX;
-    int m_ShopY;
+    int m_ShopX=40;
+    int m_ShopY=50;
     GameObject m_MapGameObject;
     private Tile[,] m_TileMatrix;
     private Tile m_StartingTile;

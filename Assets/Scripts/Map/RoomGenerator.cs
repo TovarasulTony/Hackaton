@@ -52,10 +52,36 @@ public class RoomGenerator
         MarkRoomOnMatrix(first_line[0]);
         for (int i = 1; i < first_line.Count; ++i)
         {
-            Debug.Log("gg");
             first_line[i].x = first_line[0].x + Random.Range(-3, 4);
-            first_line[i].y = first_line[i - 1].y + Random.Range(4, 10);
+            first_line[i].y = first_line[i - 1].y + Random.Range(6, 10);
             MarkRoomOnMatrix(first_line[i]);
+            MakePath(first_line[i - 1], first_line[i]);
+        }
+        generate_row(ref first_line, ref second_line, first_second_link);
+        generate_row(ref second_line, ref third_line, second_third_link);
+    }
+
+    void generate_row(ref List<RoomStruct> _upper_line, ref List<RoomStruct> _lower_line, KeyValuePair<int, int> _link)
+    {
+        _lower_line[_link.Value].x = _upper_line[_link.Key].x - Random.Range(6, 10);
+        _lower_line[_link.Value].y = _upper_line[_link.Key].y;
+        MarkRoomOnMatrix(_lower_line[_link.Value]);
+        MakePath(_upper_line[_link.Key], _lower_line[_link.Value]);
+        for (int i = _link.Value + 1; i < _lower_line.Count; ++i)
+        {
+            _lower_line[i].x = _lower_line[_link.Value].x + Random.Range(-3, 4);
+            _lower_line[i].y = _lower_line[i - 1].y + Random.Range(6, 10);
+            MarkRoomOnMatrix(_lower_line[i]);
+        }
+        for (int i = _link.Value - 1; i >= 0; --i)
+        {
+            _lower_line[i].x = _lower_line[_link.Value].x + Random.Range(-3, 4);
+            _lower_line[i].y = _lower_line[i + 1].y - Random.Range(6, 10);
+            MarkRoomOnMatrix(_lower_line[i]);
+        }
+        for (int i = 1; i < _lower_line.Count; ++i)
+        {
+            MakePath(_lower_line[i - 1], _lower_line[i]);
         }
     }
 
