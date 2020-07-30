@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 /*
@@ -33,48 +34,34 @@ public class FireSlime : Enemy
         switch (m_State)
         {
             case FIRE_SLIME_STATE.Up:
-                Move(DIRECTION.Down);
-                Move(DIRECTION.Left,true);
+                Move(DIRECTION.Down,DIRECTION.Left);
                 break;
             case FIRE_SLIME_STATE.Left:
-                Move(DIRECTION.Right);
-                Move(DIRECTION.Down,true);
+                Move(DIRECTION.Right,DIRECTION.Down);
                 break;
             case FIRE_SLIME_STATE.Down:
-                Move(DIRECTION.Up);
-                Move(DIRECTION.Right,true);
+                Move(DIRECTION.Up,DIRECTION.Right);
                 break;
             case FIRE_SLIME_STATE.Right:
-                Move(DIRECTION.Left);
-                Move(DIRECTION.Up,true);
+                Move(DIRECTION.Left,DIRECTION.Up);
                 break;
         }
         NextState();
     }
 
-    void Move(DIRECTION _direction, bool move_character=false)
+    void Move(DIRECTION _first_direction, DIRECTION _final_direction)
     {
-        
-        Tile nextTile = m_CurrentTile.GetTile(_direction);
-        if (nextTile.GetNumberOfElements() != 0)
+        Tile nextTile = m_CurrentTile.GetTile(_first_direction);
+        Tile finalTile = nextTile.GetTile(_final_direction);
+        if (finalTile.Contains<Wall>() != null)
         {
-            return;
+            finalTile.Contains<Wall>().GetComponent<Wall>().Dig(1);
         }
-        
-        if (move_character)
-        {
-            m_CurrentTile = nextTile;
-            m_CurrentTile.AddToTile(GetComponent<AboveTileObject>());
-            transform.position = new Vector3(m_CurrentTile.transform.position.x, m_CurrentTile.transform.position.y, transform.position.z);
-        }
-        else
-        {
-            m_CurrentTile.RemoveFromTile(GetComponent<AboveTileObject>());
-            m_CurrentTile = nextTile;
-        }
-            
-        
 
+        m_CurrentTile.RemoveFromTile(GetComponent<AboveTileObject>());
+        m_CurrentTile = finalTile;
+        m_CurrentTile.AddToTile(GetComponent<AboveTileObject>());
+        transform.position = new Vector3(m_CurrentTile.transform.position.x, m_CurrentTile.transform.position.y, transform.position.z);
 
     }
 
