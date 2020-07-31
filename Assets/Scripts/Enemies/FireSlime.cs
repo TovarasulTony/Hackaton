@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-/*
- Schimba codul de move . 2 argumente pentru cele 2 directii in loc de 2 apeluri.
- Vezi cum faci sa sapi in caz ca trebuie sa sari in perete de pamant
- 
- */
-
-
 enum FIRE_SLIME_STATE
 {
     Invalid,
