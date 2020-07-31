@@ -12,6 +12,7 @@ public class RoomGenerator
 
     public RoomGenerator(ref STRUCTURE_TYPE[,] _mapMatrix, int _matrixLength)
     {
+        m_RoomsList = new List<RoomStruct>();
         m_MapMatrix = _mapMatrix;
         m_MatrixLength = _matrixLength;
     }
@@ -57,8 +58,8 @@ public class RoomGenerator
             MarkRoomOnMatrix(first_line[i]);
             MakePath(first_line[i - 1], first_line[i]);
         }
-        generate_row(ref first_line, ref second_line, first_second_link);
-        generate_row(ref second_line, ref third_line, second_third_link);
+        GenerateRow(ref first_line, ref second_line, first_second_link);
+        GenerateRow(ref second_line, ref third_line, second_third_link);
         bool isNeighborUp = Random.Range(1, 3) == 1 ? true : false;
         List<RoomStruct> room_list = isNeighborUp == true ? first_line : third_line;
         RoomStruct shopNeighbor = room_list[Random.Range(0, room_list.Count)];
@@ -67,7 +68,19 @@ public class RoomGenerator
         shop.x = shopNeighbor.x + (isNeighborUp == true ? 7 : -7);
         MarkShop(shop);
         MakePath(shop, shopNeighbor);
-        TrimMap(first_line, second_line, third_line);
+        foreach(RoomStruct room in first_line)
+        {
+            m_RoomsList.Add(room);
+        }
+        foreach (RoomStruct room in second_line)
+        {
+            m_RoomsList.Add(room);
+        }
+        foreach (RoomStruct room in third_line)
+        {
+            m_RoomsList.Add(room);
+        }
+        TrimMap();
     }
 
     void MarkShop(RoomStruct _shop)
@@ -85,7 +98,7 @@ public class RoomGenerator
         }
     }
 
-    void generate_row(ref List<RoomStruct> _upper_line, ref List<RoomStruct> _lower_line, KeyValuePair<int, int> _link)
+    void GenerateRow(ref List<RoomStruct> _upper_line, ref List<RoomStruct> _lower_line, KeyValuePair<int, int> _link)
     {
         _lower_line[_link.Value].x = _upper_line[_link.Key].x - Random.Range(6, 10);
         _lower_line[_link.Value].y = _upper_line[_link.Key].y;
@@ -134,33 +147,29 @@ public class RoomGenerator
             m_MapMatrix[i, _second.y] = STRUCTURE_TYPE.Tile;
         }
     }
-    void TrimMap(List<RoomStruct> _first_line, List<RoomStruct> _second_line, List<RoomStruct> _third_line)
-    {
-        int min_y = _first_line[0].y;
-        int max_y = _first_line[0].y;
-        int min_x = _first_line[0].x;
-        int max_x = _first_line[0].x;
-        FindMinValues(ref min_y, ref max_y, ref min_x, ref max_x, _first_line);
-        FindMinValues(ref min_y, ref max_y, ref min_x, ref max_x, _second_line);
-        FindMinValues(ref min_y, ref max_y, ref min_x, ref max_x, _third_line);
 
-        Debug.Log(min_y + " " + max_y + " " + min_x + " " + max_x);
+    void TrimMap()
+    {
+        int min_y = m_RoomsList[0].y;
+        int max_y = m_RoomsList[0].y;
+        int min_x = m_RoomsList[0].x;
+        int max_x = m_RoomsList[0].x;
+        FindMinValues(ref min_y, ref max_y, ref min_x, ref max_x);
         for (int i = 0; i < m_MatrixLength; i++)
         {
             for (int j = 0; j < m_MatrixLength; j++)
             {
                 if (i < min_x - 12 || i > max_x + 12 || j < min_y - 12 || j > max_y + 12)
                 {
-                    Debug.Log(i + " " + j);
                     m_MapMatrix[i, j] = STRUCTURE_TYPE.Invalid;
                 }
             }
         }
     }
 
-    void FindMinValues(ref int min_y, ref int max_y, ref int min_x, ref int max_x, List<RoomStruct> _line)
+    void FindMinValues(ref int min_y, ref int max_y, ref int min_x, ref int max_x)
     {
-        foreach (RoomStruct room in _line)
+        foreach (RoomStruct room in m_RoomsList)
         {
             if(min_y > room.y)
             {
@@ -179,5 +188,10 @@ public class RoomGenerator
                 max_x = room.x;
             }
         }
+    }
+
+    public List<RoomStruct> GetRoomList()
+    {
+        return m_RoomsList;
     }
 }

@@ -8,6 +8,6 @@ public class EnemyManager : MonoBehaviour
 
     void Start()
     {
-        Enemy enemy = Instantiate(m_Enemy);
+        //Enemy enemy = Instantiate(m_Enemy);
     }
 }

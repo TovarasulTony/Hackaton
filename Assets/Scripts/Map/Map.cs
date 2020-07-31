@@ -43,6 +43,20 @@ public class Map : MonoBehaviour
         m_MapGenerator = new MapGenerator();
         m_MapInstantiator = new MapInstantiator();
         m_Pathfinder = new Pathfinder();
+        List<RoomStruct> roomList = m_MapGenerator.GetRoomList();
+        GenerateMonsters(roomList);
+    }
+    void GenerateMonsters(List<RoomStruct> _roomList)
+    {
+        List<List<RoomStruct>> line_list = new List<List<RoomStruct>>();
+        foreach (RoomStruct room in _roomList)
+        {
+            int numberOfEnemies = Random.Range(2, 4);
+            for (int i = 1; i <= numberOfEnemies; ++i)
+            {
+
+            }
+        }
     }
 
     public int GetMatrixLength()
