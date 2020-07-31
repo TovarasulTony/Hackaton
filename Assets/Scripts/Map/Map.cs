@@ -26,7 +26,7 @@ public class Map : MonoBehaviour
     int[,] m_PlayerTrakingMap;
     Tile[,] m_TileMatrix;
 
-    int m_MatrixLength = 30;
+    int m_MatrixLength = 90;
     private Tile m_StartingTile;
     private Tile m_EnemyTile;
 

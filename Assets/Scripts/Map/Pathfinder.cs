@@ -65,7 +65,8 @@ public class Pathfinder: IPlayerSubscriber
 
     void EnqueueTile(Tile _tile, int _distance, ref Queue<KeyValuePair<Tile, int>> _tileQueue)
     {
-        if (_tile.Contains<Wall>() != null)
+        //_distance > 20 asta s-ar putea a futa multe
+        if (_tile.Contains<Wall>() != null || _tile.m_FogStatus == FOG_STATUS.Unexplored || _distance > 20)
         {
             return;
         }
