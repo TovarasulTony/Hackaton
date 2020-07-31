@@ -59,6 +59,29 @@ public class RoomGenerator
         }
         generate_row(ref first_line, ref second_line, first_second_link);
         generate_row(ref second_line, ref third_line, second_third_link);
+        bool isNeighborUp = Random.Range(1, 3) == 1 ? true : false;
+        List<RoomStruct> room_list = isNeighborUp == true ? first_line : third_line;
+        RoomStruct shopNeighbor = room_list[Random.Range(0, room_list.Count)];
+        RoomStruct shop = new RoomStruct();
+        shop.y = shopNeighbor.y;
+        shop.x = shopNeighbor.x + (isNeighborUp == true ? 7 : -7);
+        MarkShop(shop);
+        MakePath(shop, shopNeighbor);
+    }
+
+    void MarkShop(RoomStruct _shop)
+    {
+        for (int i = _shop.x - 4; i <= _shop.x + 4; ++i)
+        {
+            for (int j = _shop.y - 3; j <= _shop.y + 3; ++j)
+            {
+                m_MapMatrix[i, j] = STRUCTURE_TYPE.Tile;
+                if (i == _shop.x - 4 || i == _shop.x + 4 || j == _shop.y - 3 || j == _shop.y + 3)
+                {
+                    m_MapMatrix[i, j] = STRUCTURE_TYPE.ShopWall;
+                }
+            }
+        }
     }
 
     void generate_row(ref List<RoomStruct> _upper_line, ref List<RoomStruct> _lower_line, KeyValuePair<int, int> _link)
@@ -92,8 +115,6 @@ public class RoomGenerator
         {
             for (int j = _room.y - (_room.width - 1) / 2; j <= _room.y + _room.width / 2; ++j)
             {
-                Debug.Log(i + " " + j);
-                Debug.Log(m_MapMatrix.Length);
                 m_MapMatrix[i, j] = STRUCTURE_TYPE.Tile;
             }
         }
@@ -102,117 +123,14 @@ public class RoomGenerator
     void MakePath(RoomStruct _first, RoomStruct _second)
     {
         int direction = _first.y - _second.y > 0 ? -1 : 1;
-        //Debug.Log("secodn number " + _second.number);
-        //Debug.Log("shop x "+_first.x);
-        //Debug.Log("shop y " + _first.y);
         for (int i = _first.y; i != _second.y + direction; i = i + direction)
         {
-            //Debug.Log(i);
             m_MapMatrix[_first.x, i] = STRUCTURE_TYPE.Tile;
         }
         direction = _first.x - _second.x > 0 ? -1 : 1;
         for (int i = _first.x; i != _second.x + direction; i = i + direction)
         {
-            //Debug.Log(i);
             m_MapMatrix[i, _second.y] = STRUCTURE_TYPE.Tile;
         }
-    }
-
-    public List<RoomStruct> GenerateRoomsss(STRUCTURE_TYPE[,] _mapMatrix, int _matrixLength)
-    {
-        int roomsNumber = Random.Range(5, 6);
-        m_RoomsList = new List<RoomStruct>();
-        for (int k = 1; k <= roomsNumber; ++k)
-        {
-            bool roomOk = false;
-            int roomHeigth = Random.Range(4, 6);
-            int roomWidth = Random.Range(4, 7);
-
-            int room_X = 0;
-            int room_Y = 0;
-
-            int trialCount = 0;
-
-            while (roomOk == false)
-            {
-                room_X = Random.Range(5, _matrixLength - 5);
-                room_Y = Random.Range(5, _matrixLength - 5);
-
-                roomOk = true;
-                for (int i = room_X - (roomHeigth - 1) / 2 - 1; i <= room_X + roomHeigth / 2 + 1; ++i)
-                {
-                    for (int j = room_Y - (roomHeigth - 1) / 2 - 1; j <= room_Y + roomHeigth / 2 + 1; ++j)
-                    {
-                        if (_mapMatrix[i, j] != STRUCTURE_TYPE.Wall)
-                        {
-                            roomOk = false;
-                        }
-                    }
-                }
-                trialCount++;
-                if (trialCount == 100)
-                {
-                    Debug.Log(trialCount);
-                    roomOk = true;
-                }
-            }
-
-            if (trialCount < 100)
-            {
-                RoomStruct room = new RoomStruct();
-                room.x = room_X;
-                room.y = room_Y;
-                room.width = roomWidth;
-                room.heigth = roomHeigth;
-                m_RoomsList.Add(room);
-                for (int i = room_X - (roomHeigth - 1) / 2; i <= room_X + roomHeigth / 2; ++i)
-                {
-                    for (int j = room_Y - (roomWidth - 1) / 2; j <= room_Y + roomWidth / 2; ++j)
-                    {
-                        _mapMatrix[i, j] = STRUCTURE_TYPE.Tile;
-                    }
-                }
-            }
-        }
-
-        return m_RoomsList;
-    }
-
-    public Dictionary<RoomStruct,RoomStruct> Paths()
-    {
-        m_MinRoom = new Dictionary<RoomStruct, RoomStruct>();
-        /*
-
-
-        foreach (RoomStruct room in m_RoomsList)
-        {
-            RoomStruct otherRoom = FindMinPath(room);
-            if(m_MinRoom.ContainsKey(otherRoom))
-            {
-                if( m_MinRoom[otherRoom] == room)
-                {
-                    continue;
-                }
-            }
-            m_MinRoom.Add(room, FindMinPath(room));
-        }
-        */
-        return m_MinRoom;
-    }
-
-    RoomStruct FindMinPath(RoomStruct _room)
-    {
-        int minDistance = 10000;
-        RoomStruct minRoom = null;
-        foreach (RoomStruct room in m_RoomsList)
-        {
-            int distance = System.Math.Abs(room.x - _room.x) + System.Math.Abs(room.y - _room.y);
-            if (minDistance > distance)
-            {
-                minRoom = room;
-                minDistance = distance;
-            }
-        }
-        return minRoom;
     }
 }

@@ -72,7 +72,6 @@ public class Map : MonoBehaviour
 
     public KeyValuePair<int, int> GetCoordinates(string _name)
     {
-        Debug.Log(_name + " hhh");
         return m_SpecialCoordinates[_name];
     }
 

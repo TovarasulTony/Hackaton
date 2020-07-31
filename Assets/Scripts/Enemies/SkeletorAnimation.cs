@@ -91,7 +91,6 @@ public class SkeletorAnimation : GenericBehavior, IBeat
 
     void DestinationReached()
     {
-        Debug.Log("Reached");
         m_SkeletorObject.position = m_NewPosition;
         m_SkeletorAnimatorObject.position = new Vector3(m_SkeletorAnimatorObject.position.x, m_OldY, m_SkeletorAnimatorObject.position.z);
         m_IsMovingAnimation = false;
