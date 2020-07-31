@@ -55,6 +55,10 @@ public class MapInstantiator
         {
             for (int j = 0; j < m_MatrixLength; j++)
             {
+                if (_mapMatrix[i, j] == STRUCTURE_TYPE.Invalid)
+                {
+                    continue;
+                }
                 Vector3 position = new Vector3((float)j, (float)i, 20f);
                 Tile prefab_tile = Object.Instantiate(m_TilePrefab, position, Quaternion.identity);
                 prefab_tile.transform.parent = m_MapGameObject.transform;
@@ -98,6 +102,8 @@ public class MapInstantiator
         {
             for (int j = 0; j < m_MatrixLength; j++)
             {
+                if (m_TileMatrix[i, j] == null)
+                    continue;
                 if (i > 0)
                     m_TileMatrix[i, j].SetTile(DIRECTION.Down, m_TileMatrix[i - 1, j]);
                 if (j > 0)

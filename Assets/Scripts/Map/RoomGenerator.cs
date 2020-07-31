@@ -29,7 +29,7 @@ public class RoomGenerator
         for (int i = 4; i <= numOfRooms; ++i)
         {
             int assignedRow = Random.Range(1, 4);
-            switch(assignedRow)
+            switch (assignedRow)
             {
                 case 1:
                     first_line.Add(new RoomStruct());
@@ -67,6 +67,7 @@ public class RoomGenerator
         shop.x = shopNeighbor.x + (isNeighborUp == true ? 7 : -7);
         MarkShop(shop);
         MakePath(shop, shopNeighbor);
+        TrimMap(first_line, second_line, third_line);
     }
 
     void MarkShop(RoomStruct _shop)
@@ -131,6 +132,52 @@ public class RoomGenerator
         for (int i = _first.x; i != _second.x + direction; i = i + direction)
         {
             m_MapMatrix[i, _second.y] = STRUCTURE_TYPE.Tile;
+        }
+    }
+    void TrimMap(List<RoomStruct> _first_line, List<RoomStruct> _second_line, List<RoomStruct> _third_line)
+    {
+        int min_y = _first_line[0].y;
+        int max_y = _first_line[0].y;
+        int min_x = _first_line[0].x;
+        int max_x = _first_line[0].x;
+        FindMinValues(ref min_y, ref max_y, ref min_x, ref max_x, _first_line);
+        FindMinValues(ref min_y, ref max_y, ref min_x, ref max_x, _second_line);
+        FindMinValues(ref min_y, ref max_y, ref min_x, ref max_x, _third_line);
+
+        Debug.Log(min_y + " " + max_y + " " + min_x + " " + max_x);
+        for (int i = 0; i < m_MatrixLength; i++)
+        {
+            for (int j = 0; j < m_MatrixLength; j++)
+            {
+                if (i < min_x - 12 || i > max_x + 12 || j < min_y - 12 || j > max_y + 12)
+                {
+                    Debug.Log(i + " " + j);
+                    m_MapMatrix[i, j] = STRUCTURE_TYPE.Invalid;
+                }
+            }
+        }
+    }
+
+    void FindMinValues(ref int min_y, ref int max_y, ref int min_x, ref int max_x, List<RoomStruct> _line)
+    {
+        foreach (RoomStruct room in _line)
+        {
+            if(min_y > room.y)
+            {
+                min_y = room.y;
+            }
+            if (max_y < room.y)
+            {
+                max_y = room.y;
+            }
+            if (min_x > room.x)
+            {
+                min_x = room.x;
+            }
+            if (max_x < room.x)
+            {
+                max_x = room.x;
+            }
         }
     }
 }
