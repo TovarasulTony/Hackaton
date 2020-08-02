@@ -5,6 +5,7 @@ using UnityEngine;
 public class Pathfinder: IPlayerSubscriber
 {
     Player m_Player;
+    List<Enemy> m_EnemyList;
     int[,] m_DistanceMatrix;
     bool[,] m_UpdatedTiles;
     int m_MatrixLength = 30;
@@ -14,6 +15,7 @@ public class Pathfinder: IPlayerSubscriber
         m_MatrixLength = Map.instance.GetMatrixLength();
         m_DistanceMatrix = new int[m_MatrixLength, m_MatrixLength];
         m_UpdatedTiles = new bool[m_MatrixLength, m_MatrixLength];
+        m_EnemyList = new List<Enemy>();
 
         for (int i = 0; i < m_MatrixLength; ++i)
         {
@@ -29,6 +31,7 @@ public class Pathfinder: IPlayerSubscriber
     {
         Clean();
         UpdateDistanceMatrix();
+        BlockPaths();
     }
 
     void Clean()
@@ -63,6 +66,14 @@ public class Pathfinder: IPlayerSubscriber
         }
     }
 
+    void BlockPaths()
+    {
+        foreach(Enemy enemy in m_EnemyList)
+        {
+            m_DistanceMatrix[enemy.GetTileReference().GetX(), enemy.GetTileReference().GetY()] = -1;
+        }
+    }
+
     void EnqueueTile(Tile _tile, int _distance, ref Queue<KeyValuePair<Tile, int>> _tileQueue)
     {
         //_distance > 20 asta s-ar putea a futa multe
@@ -76,6 +87,14 @@ public class Pathfinder: IPlayerSubscriber
         }
         _tileQueue.Enqueue(new KeyValuePair<Tile, int>(_tile, _distance));
     }
+    public bool IsTileBlocked(Tile _tile)
+    {
+        if (m_DistanceMatrix[_tile.GetX(), _tile.GetY()] > 0)
+        {
+            return false;
+        }
+        return true;
+    }
 
     public void SetPlayerReference(Player _player)
     {
@@ -86,5 +105,15 @@ public class Pathfinder: IPlayerSubscriber
     public int GetPlayerDistance(Tile _tile)
     {
         return m_DistanceMatrix[_tile.GetX(), _tile.GetY()];
+    }
+
+    public void AddEnemy(Enemy _enemy)
+    {
+        m_EnemyList.Add(_enemy);
+    }
+
+    public void RemoveEnemy(Enemy _enemy)
+    {
+        m_EnemyList.Remove(_enemy);
     }
 }

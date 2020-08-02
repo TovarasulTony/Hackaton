@@ -46,6 +46,10 @@ public class FireSlime : Enemy
     {
         Tile nextTile = m_CurrentTile.GetTile(_first_direction);
         Tile finalTile = nextTile.GetTile(_final_direction);
+        if(Map.instance.IsTileBlocked(finalTile))
+        {
+            return;
+        }
         if (finalTile.Contains<Wall>() != null)
         {
             finalTile.Contains<Wall>().GetComponent<Wall>().Dig(1);
@@ -55,7 +59,6 @@ public class FireSlime : Enemy
         m_CurrentTile = finalTile;
         m_CurrentTile.AddToTile(GetComponent<AboveTileObject>());
         transform.position = new Vector3(m_CurrentTile.transform.position.x, m_CurrentTile.transform.position.y, transform.position.z);
-
     }
 
     void NextState()

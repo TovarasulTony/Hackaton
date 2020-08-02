@@ -148,4 +148,9 @@ public class MapInstantiator
         prefab_wall.transform.parent = m_MapGameObject.transform;
         _tile.AddToTile(prefab_wall.GetComponent<AboveTileObject>());
     }
+
+    public Tile[,] GetTileMatrix()
+    {
+        return m_TileMatrix;
+    }
 }

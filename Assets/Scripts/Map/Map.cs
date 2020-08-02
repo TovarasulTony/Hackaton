@@ -43,18 +43,27 @@ public class Map : MonoBehaviour
         m_MapGenerator = new MapGenerator();
         m_MapInstantiator = new MapInstantiator();
         m_Pathfinder = new Pathfinder();
+        m_TileMatrix = m_MapInstantiator.GetTileMatrix(); 
         List<RoomStruct> roomList = m_MapGenerator.GetRoomList();
         GenerateMonsters(roomList);
     }
+
     void GenerateMonsters(List<RoomStruct> _roomList)
     {
-        List<List<RoomStruct>> line_list = new List<List<RoomStruct>>();
         foreach (RoomStruct room in _roomList)
         {
             int numberOfEnemies = Random.Range(2, 4);
             for (int i = 1; i <= numberOfEnemies; ++i)
             {
+                int x = room.x + Random.Range(-(room.heigth - 1) / 2, (room.heigth - 1) / 2 + 1);
+                int y = room.y + Random.Range(-(room.width - 1) / 2, (room.width - 1) / 2 + 1);
 
+                if(m_TileMatrix[x, y].Contains<Enemy>() || m_TileMatrix[x, y].Contains<Player>())
+                {
+                    continue;
+                }
+                Enemy enemy = Instantiate(GetComponent<MapReferences>().m_EnemyList[Random.Range(0, GetComponent<MapReferences>().m_EnemyList.Count)]);
+                m_TileMatrix[x, y].AddToTile(enemy);
             }
         }
     }
@@ -107,5 +116,20 @@ public class Map : MonoBehaviour
     public int GetPlayerDistance(Tile _tile)
     {
         return m_Pathfinder.GetPlayerDistance(_tile);
+    }
+
+    public void AddEnemy(Enemy _enemy)
+    {
+        m_Pathfinder.AddEnemy(_enemy);
+    }
+
+    public void RemoveEnemy(Enemy _enemy)
+    {
+        m_Pathfinder.RemoveEnemy(_enemy);
+    }
+
+    public bool IsTileBlocked(Tile _tile)
+    {
+        return m_Pathfinder.IsTileBlocked(_tile);
     }
 }
