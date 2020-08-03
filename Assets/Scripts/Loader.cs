@@ -9,7 +9,6 @@ public class Loader : MonoBehaviour
     public Player m_Player;
     public Map m_Map;
     public CameraFollow m_Camera;
-    public EnemyManager m_EnemyManager;
 
     public List<MonoBehaviour> m_Tests;
 
@@ -20,7 +19,6 @@ public class Loader : MonoBehaviour
         m_Map = Instantiate(m_Map);
         m_Player = Instantiate(m_Player);
         m_Camera = Instantiate(m_Camera);
-        m_EnemyManager = Instantiate(m_EnemyManager);
         
         m_Camera.SetPlayerReference(m_Player);
         m_Map.SetPlayerReference(m_Player);
