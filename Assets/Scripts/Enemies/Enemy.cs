@@ -7,9 +7,7 @@ public class Enemy : AboveTileObject, IBeat
     protected override void StartActor()
     {
         //m_SubscriberList = new List<IPlayerSubscriber>(); This is shitty; Trebuie un loader
-        m_CurrentTile = Map.instance.GetTile("Enemy");
-        m_CurrentTile.AddToTile(GetComponent<AboveTileObject>());
-        SetFogStatus(FOG_STATUS.Unexplored);
+        Map.instance.AddEnemy(GetComponent<Enemy>());
         Vector3 new_position = m_CurrentTile.transform.position;
         transform.position = new Vector3(new_position.x, new_position.y, -2f);
 
@@ -20,9 +18,10 @@ public class Enemy : AboveTileObject, IBeat
 
     public virtual void OnBeat() { }
 
-    public void DestroyEnemy() {
-
+    public void DestroyEnemy() 
+    {
         BeatMaster.instance.UnsubscribeToBeat(GetComponent<IBeat>());
+        Map.instance.RemoveEnemy(GetComponent<Enemy>());
         DestroyThis();
     }
 }
