@@ -111,6 +111,7 @@ public class PlayerAnimation : GenericBehavior, IBeat, IPlayerSubscriber
         m_PlayerReference.SetDirection(DIRECTION.None);
         m_PlayerReference.SetMovementStatus(MOVEMENT_STATUS.MovingCombo);
         m_PlayerObject.position = m_NewPosition;
+        Debug.Log("reached: " + m_PlayerObject.position.z);
         m_PlayerAnimatorObject.position = new Vector3(m_PlayerAnimatorObject.position.x, m_OldY, m_PlayerAnimatorObject.position.z);
         m_MovementStarted = true;
     }

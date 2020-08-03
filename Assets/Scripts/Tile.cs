@@ -9,7 +9,7 @@ public class Tile : MonoBehaviour, IBeat
     Dictionary<DIRECTION, Tile> m_Tiles = null;
     List<AboveTileObject> m_ContainedObjects = null;
     BEAT_PARITY m_TileParity;
-    int m_Elevation = -1;
+    float m_LayerNumber = -1;
     public FOG_STATUS m_FogStatus;
     [SerializeField]
     public KeyValuePair<int, int> m_Coordinates;
@@ -156,5 +156,15 @@ public class Tile : MonoBehaviour, IBeat
     public int GetY()
     {
         return m_Coordinates.Value;
+    }
+
+    public void SetLayerNumber(int _number)
+    {
+        m_LayerNumber = (float)_number / 100;
+    }
+
+    public float GetLayerNumber()
+    {
+        return m_LayerNumber;
     }
 }
