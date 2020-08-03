@@ -33,7 +33,7 @@ public class Tile : MonoBehaviour, IBeat
         m_ContainedObjects.Add(_objectToAdd);
         _objectToAdd.SetTileReference(gameObject.GetComponent<Tile>());
         _objectToAdd.SetFogStatus(m_FogStatus);
-        if (_objectToAdd.GetComponent<Wall>() != null)
+        if(_objectToAdd.GetComponent<Wall>() != null)
         {
             UnsubscribeToBeat();
         }
