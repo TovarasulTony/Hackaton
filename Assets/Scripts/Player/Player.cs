@@ -174,7 +174,6 @@ public class Player : AboveTileObject
             m_MovementBeat = BeatMaster.instance.GetBeatNumber();
             return true;
         }
-
         m_MovementBeat++;
         if (m_MovementBeat - BeatMaster.instance.GetBeatNumber() >= 1)
         {
@@ -182,9 +181,6 @@ public class Player : AboveTileObject
             MissedBeat();
             return false;
         }
-
-
-
         return true;
     }
 
@@ -249,6 +245,7 @@ public class Player : AboveTileObject
             if(enemy != null)
             {
                 attacked = true;
+                SoundManager.instance.PlayerSound("player", "mele");
                 enemy.GetComponent<Enemy>().DestroyEnemy();
             }
         }
