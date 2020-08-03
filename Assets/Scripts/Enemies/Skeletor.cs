@@ -18,7 +18,6 @@ public class Skeletor : Enemy
     protected override void StartEnemy()
     {
         m_State = SKELETOR_STATE.Pause;
-        BeatMaster.instance.SubscribeToBeat(GetComponent<IBeat>());
 
         SkeletorAnimation skeletorAnimation = new SkeletorAnimation();
         skeletorAnimation.SetSkeletorReference(GetComponent<Skeletor>());
