@@ -9,7 +9,7 @@ public class Tile : MonoBehaviour, IBeat
     Dictionary<DIRECTION, Tile> m_Tiles = null;
     List<AboveTileObject> m_ContainedObjects = null;
     BEAT_PARITY m_TileParity;
-    float m_LayerNumber = -1;
+    float m_LayerNumber;
     public FOG_STATUS m_FogStatus;
     [SerializeField]
     public KeyValuePair<int, int> m_Coordinates;

@@ -53,8 +53,8 @@ public class SkeletorAnimation : GenericBehavior, IBeat
         switch (m_MovementDirection)
         {
             case DIRECTION.Up:
-                m_SkeletorObject.position = new Vector3(m_SkeletorObject.position.x, m_SkeletorObject.position.y + speed, m_SkeletorObject.position.z);
-                m_SkeletorAnimatorObject.position = new Vector3(m_SkeletorAnimatorObject.position.x, m_SkeletorAnimatorObject.position.y + speed / 3, m_SkeletorAnimatorObject.position.z);
+                m_SkeletorObject.position = new Vector3(m_SkeletorObject.position.x, m_SkeletorObject.position.y + speed, m_NewPosition.z);
+                m_SkeletorAnimatorObject.position = new Vector3(m_SkeletorAnimatorObject.position.x, m_SkeletorAnimatorObject.position.y + speed / 3, m_NewPosition.z);
                 if (m_SkeletorObject.position.y >= m_NewPosition.y)
                 {
                     m_OldY++;
@@ -62,8 +62,8 @@ public class SkeletorAnimation : GenericBehavior, IBeat
                 }
                 break;
             case DIRECTION.Down:
-                m_SkeletorObject.position = new Vector3(m_SkeletorObject.position.x, m_SkeletorObject.position.y - speed, m_SkeletorObject.position.z);
-                m_SkeletorAnimatorObject.position = new Vector3(m_SkeletorAnimatorObject.position.x, m_SkeletorAnimatorObject.position.y + speed / 3, m_SkeletorAnimatorObject.position.z);
+                m_SkeletorObject.position = new Vector3(m_SkeletorObject.position.x, m_SkeletorObject.position.y - speed, m_NewPosition.z);
+                m_SkeletorAnimatorObject.position = new Vector3(m_SkeletorAnimatorObject.position.x, m_SkeletorAnimatorObject.position.y + speed / 3, m_NewPosition.z);
                 if (m_SkeletorObject.position.y <= m_NewPosition.y)
                 {
                     m_OldY--;
@@ -71,16 +71,16 @@ public class SkeletorAnimation : GenericBehavior, IBeat
                 }
                 break;
             case DIRECTION.Right:
-                m_SkeletorObject.position = new Vector3(m_SkeletorObject.position.x + speed, m_SkeletorObject.position.y, m_SkeletorObject.position.z);
-                m_SkeletorAnimatorObject.position = new Vector3(m_SkeletorAnimatorObject.position.x, m_SkeletorAnimatorObject.position.y + speed / 2, m_SkeletorAnimatorObject.position.z);
+                m_SkeletorObject.position = new Vector3(m_SkeletorObject.position.x + speed, m_SkeletorObject.position.y, m_NewPosition.z);
+                m_SkeletorAnimatorObject.position = new Vector3(m_SkeletorAnimatorObject.position.x, m_SkeletorAnimatorObject.position.y + speed / 2, m_NewPosition.z);
                 if (m_SkeletorObject.position.x >= m_NewPosition.x)
                 {
                     DestinationReached();
                 }
                 break;
             case DIRECTION.Left:
-                m_SkeletorObject.position = new Vector3(m_SkeletorObject.position.x - speed, m_SkeletorObject.position.y, m_SkeletorObject.position.z);
-                m_SkeletorAnimatorObject.position = new Vector3(m_SkeletorAnimatorObject.position.x, m_SkeletorAnimatorObject.position.y + speed / 2, m_SkeletorAnimatorObject.position.z);
+                m_SkeletorObject.position = new Vector3(m_SkeletorObject.position.x - speed, m_SkeletorObject.position.y, m_NewPosition.z);
+                m_SkeletorAnimatorObject.position = new Vector3(m_SkeletorAnimatorObject.position.x, m_SkeletorAnimatorObject.position.y + speed / 2, m_NewPosition.z);
                 if (m_SkeletorObject.position.x <= m_NewPosition.x)
                 {
                     DestinationReached();
@@ -92,7 +92,7 @@ public class SkeletorAnimation : GenericBehavior, IBeat
     void DestinationReached()
     {
         m_SkeletorObject.position = m_NewPosition;
-        m_SkeletorAnimatorObject.position = new Vector3(m_SkeletorAnimatorObject.position.x, m_OldY, m_SkeletorAnimatorObject.position.z);
+        m_SkeletorAnimatorObject.position = new Vector3(m_SkeletorAnimatorObject.position.x, m_OldY, m_NewPosition.z);
         m_IsMovingAnimation = false;
     }
 

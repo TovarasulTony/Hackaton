@@ -62,7 +62,7 @@ public class Skeletor : Enemy
         m_CurrentTile.RemoveFromTile(GetComponent<AboveTileObject>());
         m_CurrentTile = nextTile;
         m_CurrentTile.AddToTile(GetComponent<AboveTileObject>());
-        m_NewPosition = new Vector3(m_CurrentTile.transform.position.x, m_CurrentTile.transform.position.y, transform.position.z);
+        m_NewPosition = new Vector3(m_CurrentTile.transform.position.x, m_CurrentTile.transform.position.y, m_CurrentTile.GetLayerNumber());
     }
 
     void NextState()
