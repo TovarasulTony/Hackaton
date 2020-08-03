@@ -19,7 +19,6 @@ public class FireSlime : Enemy
     protected override void StartEnemy()
     {
         m_State = FIRE_SLIME_STATE.Up;
-        BeatMaster.instance.SubscribeToBeat(GetComponent<IBeat>());
     }
 
     public override void OnBeat()

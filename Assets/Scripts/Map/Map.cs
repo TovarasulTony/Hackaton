@@ -18,6 +18,7 @@ public class Map : MonoBehaviour
     Pathfinder m_Pathfinder;
     MapGenerator m_MapGenerator;
     MapInstantiator m_MapInstantiator;
+    GameObject m_EnemiesObject;
 
     Dictionary<string, Tile> m_ImportantTiles;
     Dictionary<string, KeyValuePair<int, int>> m_SpecialCoordinates;
@@ -37,6 +38,7 @@ public class Map : MonoBehaviour
             Debug.LogWarning("BeatMaster instantiat de doua ori");
             Destroy(gameObject);
         }
+        m_EnemiesObject = new GameObject("Enemies");
         instance = gameObject.GetComponent<Map>();
         m_ImportantTiles = new Dictionary<string, Tile>();
         m_SpecialCoordinates = new Dictionary<string, KeyValuePair<int, int>>();
@@ -63,6 +65,7 @@ public class Map : MonoBehaviour
                     continue;
                 }
                 Enemy enemy = Instantiate(GetComponent<MapReferences>().m_EnemyList[Random.Range(0, GetComponent<MapReferences>().m_EnemyList.Count)]);
+                enemy.transform.parent = m_EnemiesObject.transform;
                 m_TileMatrix[x, y].AddToTile(enemy);
             }
         }

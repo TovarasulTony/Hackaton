@@ -118,7 +118,7 @@ public class Player : AboveTileObject
         m_CurrentTile = _nextTile;
         m_CurrentTile.AddToTile(GetComponent<AboveTileObject>());
         Vector3 new_position = m_CurrentTile.transform.position;
-        m_NewPosition = new Vector3(new_position.x, new_position.y, -2f);
+        m_NewPosition = new Vector3(new_position.x, new_position.y, m_CurrentTile.GetLayerNumber());
         m_MovementStatus = MOVEMENT_STATUS.MovingAnimation;
         UpdatePlayerDirection();
 

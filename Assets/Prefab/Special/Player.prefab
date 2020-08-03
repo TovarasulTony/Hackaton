@@ -107,7 +107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4379084566634462721}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.09, z: -0.00999999}
+  m_LocalPosition: {x: 0, y: 0.09, z: -0.0000001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7350356015645084932}
@@ -209,6 +209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a806f3ec758780b4fa12e3494dd321d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_UnexploredSprite: {fileID: 0}
+  m_FogStatus: 0
   m_AnimationTransform: {fileID: 7350356015645084932}
   m_MissedBeatPrefab: {fileID: -2023158449793657888, guid: 2b9f46da5a7898d4c927136e9de21dc0,
     type: 3}
@@ -289,7 +291,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6790754404571612980}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.024300002, y: -0.050599992, z: 0}
+  m_LocalPosition: {x: -0.024300002, y: -0.050599992, z: 0.0001}
   m_LocalScale: {x: 0.43791568, y: 0.6104591, z: 4.5}
   m_Children: []
   m_Father: {fileID: 7896142577741428710}

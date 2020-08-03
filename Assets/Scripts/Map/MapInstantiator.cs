@@ -59,7 +59,7 @@ public class MapInstantiator
                 {
                     continue;
                 }
-                Vector3 position = new Vector3((float)j, (float)i, 20f);
+                Vector3 position = new Vector3((float)j, (float)i, 100f);
                 Tile prefab_tile = Object.Instantiate(m_TilePrefab, position, Quaternion.identity);
                 prefab_tile.transform.parent = m_MapGameObject.transform;
                 m_TileMatrix[i, j] = prefab_tile;
@@ -68,18 +68,19 @@ public class MapInstantiator
                 prefab_tile.SetTile(DIRECTION.Left, prefab_tile);
                 prefab_tile.SetTile(DIRECTION.Right, prefab_tile);
                 prefab_tile.SetCoordinates(i, j);
+                prefab_tile.SetLayerNumber(i);
 
                 prefab_tile.SetParity((i + j) % 2 == 0 ? BEAT_PARITY.Even : BEAT_PARITY.Odd);
 
                 if (_mapMatrix[i, j] == STRUCTURE_TYPE.Wall)
                 {
-                    Vector3 position_wall = new Vector3((float)j, (float)i + 0.5f, -10f + 0.1f * i);
+                    Vector3 position_wall = new Vector3((float)j, (float)i + 0.5f, prefab_tile.GetLayerNumber());
                     CreateWall(prefab_tile, position_wall, Quaternion.identity);
                 }
 
                 if (_mapMatrix[i, j] == STRUCTURE_TYPE.ShopWall)
                 {
-                    Vector3 position_wall = new Vector3((float)j, (float)i + 0.5f, -10f + 0.1f * i);
+                    Vector3 position_wall = new Vector3((float)j, (float)i + 0.5f, prefab_tile.GetLayerNumber());
                     CreateWall(prefab_tile, position_wall, Quaternion.identity, m_ShopWallPrefab);
                 }
 
