@@ -15,7 +15,7 @@ public class SoundManager : MonoBehaviour
         instance = GetComponent<SoundManager>();
     }
 
-    public void PlayerSound(string _category, string _subcategory)
+    public void PlaySound(string _category, string _subcategory)
     {
         switch(_category)
         {

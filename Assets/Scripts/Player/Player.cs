@@ -245,8 +245,8 @@ public class Player : AboveTileObject
             if(enemy != null)
             {
                 attacked = true;
-                SoundManager.instance.PlayerSound("sound_effect", "player_hit");
-                SoundManager.instance.PlayerSound("player", "mele");
+                SoundManager.instance.PlaySound("sound_effect", "player_hit");
+                SoundManager.instance.PlaySound("player", "mele");
                 enemy.GetComponent<Enemy>().DestroyEnemy();
             }
         }
