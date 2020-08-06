@@ -41,6 +41,7 @@ public class Library : MonoBehaviour
         //to be completed
         m_WeaponPatternDictionary.Add("axe", new Axe());
         m_WeaponPatternDictionary.Add("wide_sword", new WideSword());
+        m_WeaponPatternDictionary.Add("dagger", new Dagger());
     }
 
     public Sprite GetSprite(string _sprite)

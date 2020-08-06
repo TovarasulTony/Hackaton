@@ -25,6 +25,11 @@ public class UI : MonoBehaviour
         }
     }
 
+    public void CameraShake()
+    {
+        GetComponent<CameraFollow>().CameraShake();
+    }
+
     public void NotifyUIChange(string _uiElement, string _newElement)
     {
         m_BorderDictionary[_uiElement].ChangeIcon(_newElement);

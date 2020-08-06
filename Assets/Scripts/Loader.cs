@@ -21,11 +21,12 @@ public class Loader : MonoBehaviour
         m_Map = Instantiate(m_Map);
         m_Player = Instantiate(m_Player);
         m_Camera = Instantiate(m_Camera);
-        
+
         m_Camera.SetPlayerReference(m_Player);
         m_Map.SetPlayerReference(m_Player);
+        m_Player.Equip("dagger");
 
-        foreach(MonoBehaviour test in m_Tests)
+        foreach (MonoBehaviour test in m_Tests)
         {
             Instantiate(test);
         }

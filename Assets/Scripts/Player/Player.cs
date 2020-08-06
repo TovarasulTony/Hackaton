@@ -33,9 +33,8 @@ public class Player : AboveTileObject
     float m_TimeoutTime = 0;
     int m_MovementBeat;
     Vector3 m_NewPosition;
-
-    //Work in progress
-    Weapon m_Weapon = new Axe();
+    PlayerAnimation m_PlayerAnimation;
+    InventoryManagement m_Inventory;
 
     //shitty practice
     public Transform m_AnimationTransform;
@@ -43,6 +42,15 @@ public class Player : AboveTileObject
 
     //Bad Practice
     public MissedBeat m_MissedBeatPrefab;
+
+    protected override void AwakeActor()
+    {
+        m_Inventory = new InventoryManagement(GetComponent<Player>());
+        m_PlayerAnimation = new PlayerAnimation();
+
+        mBehaviorsList.Add(m_PlayerAnimation);
+        mBehaviorsList.Add(m_Inventory);
+    }
 
     protected override void StartActor()
     {
@@ -52,12 +60,8 @@ public class Player : AboveTileObject
         Vector3 new_position = m_CurrentTile.transform.position;
         transform.position = new Vector3(new_position.x, new_position.y, -2f);
 
-        PlayerAnimation playerAnimation = new PlayerAnimation();
-        playerAnimation.SetPlayerReference(GetComponent<Player>());
-        InventoryManagement inventoryManagement = new InventoryManagement(GetComponent<Player>());
+        m_PlayerAnimation.SetPlayerReference(GetComponent<Player>());
 
-        mBehaviorsList.Add(playerAnimation);
-        mBehaviorsList.Add(inventoryManagement);
 
         FogOfWar fogOfWar = new FogOfWar(GetComponent<Player>());
         //fogOfWar.SetPlayerReference(GetComponent<Player>());
@@ -234,7 +238,7 @@ public class Player : AboveTileObject
     {
         bool attacked = false;
         List<Tile> tileList = new List<Tile>();
-        foreach(KeyValuePair<int,int> pair in m_Weapon.GetAttackDictionary()[m_MovementDirection])
+        foreach(KeyValuePair<int,int> pair in m_Inventory.GetAttackPattern(m_MovementDirection))
         {
             tileList.Add(GetTileFromPair(pair, m_CurrentTile));
         }
@@ -247,6 +251,7 @@ public class Player : AboveTileObject
                 attacked = true;
                 SoundManager.instance.PlaySound("sound_effect", "player_hit");
                 SoundManager.instance.PlaySound("player", "mele");
+                m_PlayerAnimation.AttackAnimation(m_MovementDirection);
                 enemy.GetComponent<Enemy>().DestroyEnemy();
             }
         }
@@ -285,11 +290,9 @@ public class Player : AboveTileObject
         return returnTile;
     }
 
-    public Weapon Equip(Weapon _weapon)
+    public void Equip(string _weapon)
     {
-        Weapon weapon = m_Weapon;
-        m_Weapon = _weapon;
-        return weapon;
+        m_Inventory.Equip(_weapon);
     }
 
     public Vector3 GetNewPosition()
