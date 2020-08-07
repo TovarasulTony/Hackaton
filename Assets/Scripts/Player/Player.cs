@@ -32,6 +32,8 @@ public class Player : AboveTileObject
     DIRECTION m_Facing = DIRECTION.Right;
     float m_TimeoutTime = 0;
     int m_MovementBeat;
+    int m_MaxHp;
+    int m_CurrentHp;
     Vector3 m_NewPosition;
     PlayerAnimation m_PlayerAnimation;
     InventoryManagement m_Inventory;
@@ -50,6 +52,9 @@ public class Player : AboveTileObject
 
         mBehaviorsList.Add(m_PlayerAnimation);
         mBehaviorsList.Add(m_Inventory);
+
+        m_MaxHp = 2;
+        m_CurrentHp = 2;
     }
 
     protected override void StartActor()
@@ -66,6 +71,7 @@ public class Player : AboveTileObject
         FogOfWar fogOfWar = new FogOfWar(GetComponent<Player>());
         //fogOfWar.SetPlayerReference(GetComponent<Player>());
         mBehaviorsList.Add(fogOfWar);
+        Hp_UI.instance.DrawHearts(m_MaxHp, m_CurrentHp);
     }
 
     protected override void FixedUpdateActor()
@@ -108,14 +114,18 @@ public class Player : AboveTileObject
         {
             return;
         }
+        if (Attack() == true)
+        {
+            return;
+        }
         if (_nextTile.Contains<Wall>() != null)
         {
             _nextTile.Contains<Wall>().GetComponent<Wall>().Dig(1);
             return;
         }
-        if (Attack() == true) 
+        if (_nextTile.Contains<Gold>() != null)
         {
-            return;
+            m_Inventory.PickGold(_nextTile.Contains<Gold>());
         }
         m_OldTile = m_CurrentTile;
         m_CurrentTile.RemoveFromTile(GetComponent<AboveTileObject>());

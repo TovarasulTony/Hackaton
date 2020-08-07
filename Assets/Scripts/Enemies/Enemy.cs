@@ -22,6 +22,18 @@ public class Enemy : AboveTileObject, IBeat
     {
         BeatMaster.instance.UnsubscribeToBeat(GetComponent<IBeat>());
         Map.instance.RemoveEnemy(GetComponent<Enemy>());
+        DropGold();
         DestroyThis();
+    }
+
+    void DropGold()
+    {
+        Gold gold = Instantiate(Library.instance.GetPrefab("Gold")).GetComponent<Gold>();
+        gold.SetGold(Random.Range(1, 101));
+        m_CurrentTile.AddToTile(gold);
+        float x = gold.GetTileReference().transform.position.x;
+        float y = gold.GetTileReference().transform.position.y;
+        float z = gold.GetTileReference().GetLayerNumber();
+        gold.transform.position = new Vector3(x, y, z);
     }
 }
