@@ -352,3 +352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlayerHit:
   - {fileID: 8300000, guid: 34c76f3473de44f4bb38671d5255cb46, type: 3}
+  m_GoldPickup:
+  - {fileID: 8300000, guid: d09771a14e7fcb34d81b8b06c882b3c9, type: 3}
+  - {fileID: 8300000, guid: 6bafcfdfd7db4324c897e2f1b111454e, type: 3}
+  - {fileID: 8300000, guid: 01bd65f2edaaa09478abb17fe89792bd, type: 3}

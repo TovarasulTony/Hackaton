@@ -108,14 +108,18 @@ public class Player : AboveTileObject
         {
             return;
         }
+        if (Attack() == true)
+        {
+            return;
+        }
         if (_nextTile.Contains<Wall>() != null)
         {
             _nextTile.Contains<Wall>().GetComponent<Wall>().Dig(1);
             return;
         }
-        if (Attack() == true) 
+        if (_nextTile.Contains<Gold>() != null)
         {
-            return;
+            m_Inventory.PickGold(_nextTile.Contains<Gold>());
         }
         m_OldTile = m_CurrentTile;
         m_CurrentTile.RemoveFromTile(GetComponent<AboveTileObject>());

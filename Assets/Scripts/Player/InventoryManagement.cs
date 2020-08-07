@@ -6,6 +6,7 @@ public class InventoryManagement : GenericBehavior, IPlayerSubscriber
 {
     Player m_PlayerReference;
     Weapon m_Weapon;
+    int m_Gold = 0;
 
     InventoryManagement() { }
 
@@ -31,6 +32,14 @@ public class InventoryManagement : GenericBehavior, IPlayerSubscriber
         Unequip();
         m_Weapon = Library.instance.GetPattern(_weapon);
         UI.instance.NotifyUIChange("attack", _weapon);
+    }
+
+    public void PickGold(AboveTileObject _gold)
+    {
+        Gold gold = _gold.GetComponent<Gold>();
+        m_Gold += gold.GetGold();
+        SoundManager.instance.PlaySound("sound_effect", "pickup_gold");
+        gold.DestroyThis();
     }
 
     void Unequip()
