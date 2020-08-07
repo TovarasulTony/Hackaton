@@ -39,6 +39,7 @@ public class InventoryManagement : GenericBehavior, IPlayerSubscriber
         Gold gold = _gold.GetComponent<Gold>();
         m_Gold += gold.GetGold();
         SoundManager.instance.PlaySound("sound_effect", "pickup_gold");
+        Gold_UI.instance.DrawGold(m_Gold);
         gold.DestroyThis();
     }
 
