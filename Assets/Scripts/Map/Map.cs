@@ -18,6 +18,7 @@ public class Map : MonoBehaviour
     Pathfinder m_Pathfinder;
     MapGenerator m_MapGenerator;
     MapInstantiator m_MapInstantiator;
+    GameObject m_EnemiesObject;
 
     Dictionary<string, Tile> m_ImportantTiles;
     Dictionary<string, KeyValuePair<int, int>> m_SpecialCoordinates;
@@ -26,7 +27,7 @@ public class Map : MonoBehaviour
     int[,] m_PlayerTrakingMap;
     Tile[,] m_TileMatrix;
 
-    int m_MatrixLength = 30;
+    int m_MatrixLength = 90;
     private Tile m_StartingTile;
     private Tile m_EnemyTile;
 
@@ -37,12 +38,37 @@ public class Map : MonoBehaviour
             Debug.LogWarning("BeatMaster instantiat de doua ori");
             Destroy(gameObject);
         }
+        m_EnemiesObject = new GameObject("Enemies");
         instance = gameObject.GetComponent<Map>();
         m_ImportantTiles = new Dictionary<string, Tile>();
         m_SpecialCoordinates = new Dictionary<string, KeyValuePair<int, int>>();
         m_MapGenerator = new MapGenerator();
         m_MapInstantiator = new MapInstantiator();
         m_Pathfinder = new Pathfinder();
+        m_TileMatrix = m_MapInstantiator.GetTileMatrix(); 
+        List<RoomStruct> roomList = m_MapGenerator.GetRoomList();
+        GenerateMonsters(roomList);
+    }
+
+    void GenerateMonsters(List<RoomStruct> _roomList)
+    {
+        foreach (RoomStruct room in _roomList)
+        {
+            int numberOfEnemies = Random.Range(2, 4);
+            for (int i = 1; i <= numberOfEnemies; ++i)
+            {
+                int x = room.x + Random.Range(-(room.heigth - 1) / 2, (room.heigth - 1) / 2 + 1);
+                int y = room.y + Random.Range(-(room.width - 1) / 2, (room.width - 1) / 2 + 1);
+
+                if(m_TileMatrix[x, y].Contains<Enemy>() || m_TileMatrix[x, y].Contains<Player>())
+                {
+                    continue;
+                }
+                Enemy enemy = Instantiate(GetComponent<MapReferences>().m_EnemyList[Random.Range(0, GetComponent<MapReferences>().m_EnemyList.Count)]);
+                enemy.transform.parent = m_EnemiesObject.transform;
+                m_TileMatrix[x, y].AddToTile(enemy);
+            }
+        }
     }
 
     public int GetMatrixLength()
@@ -98,5 +124,19 @@ public class Map : MonoBehaviour
     public Tile GetTile(int x, int y)
     {
         return m_TileMatrix[x, y];
+    }
+    public void AddEnemy(Enemy _enemy)
+    {
+        m_Pathfinder.AddEnemy(_enemy);
+    }
+
+    public void RemoveEnemy(Enemy _enemy)
+    {
+        m_Pathfinder.RemoveEnemy(_enemy);
+    }
+
+    public bool IsTileBlocked(Tile _tile)
+    {
+        return m_Pathfinder.IsTileBlocked(_tile);
     }
 }

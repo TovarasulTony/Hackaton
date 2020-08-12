@@ -10,6 +10,9 @@ public class Wall : AboveTileObject
         if (_digMight >= m_WallMight)
         {
             m_CurrentTile.RemoveFromTile(GetComponent<Wall>());
+            SoundManager.instance.PlaySound("sound_effect", "dig");
+            SoundManager.instance.PlaySound("player", "dig");
+            UI.instance.CameraShake();
             DestroyThis();
         }
     }

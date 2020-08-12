@@ -5,6 +5,8 @@ using UnityEngine;
 public class InventoryManagement : GenericBehavior, IPlayerSubscriber
 {
     Player m_PlayerReference;
+    Weapon m_Weapon;
+    int m_Gold = 0;
 
     InventoryManagement() { }
 
@@ -20,14 +22,38 @@ public class InventoryManagement : GenericBehavior, IPlayerSubscriber
         if (weapon != null)
         {
             WeaponPickable pickable = weapon.GetComponent<WeaponPickable>();
-            Weapon playerWeapon = m_PlayerReference.Equip(Library.instance.GetPattern(pickable.GetName()));
+            Equip(pickable.GetName());
             pickable.DestroyThis();
-
-            if(playerWeapon != null)
-            {
-                InstantiateWeapon(m_PlayerReference.GetTileReference(), playerWeapon.GetWeaponType());
-            }
         }
+    }
+
+    public void Equip(string _weapon)
+    {
+        Unequip();
+        m_Weapon = Library.instance.GetPattern(_weapon);
+        UI.instance.NotifyUIChange("attack", _weapon);
+    }
+
+    public void PickGold(AboveTileObject _gold)
+    {
+        Gold gold = _gold.GetComponent<Gold>();
+        m_Gold += gold.GetGold();
+        SoundManager.instance.PlaySound("sound_effect", "pickup_gold");
+        Gold_UI.instance.DrawGold(m_Gold);
+        gold.DestroyThis();
+    }
+
+    void Unequip()
+    {
+        if(m_Weapon != null)
+        {
+            InstantiateWeapon(m_PlayerReference.GetTileReference(), m_Weapon.GetWeaponType());
+        }
+    }
+
+    public List<KeyValuePair<int, int>> GetAttackPattern(DIRECTION _attackDirection)
+    {
+        return m_Weapon.GetAttackDictionary()[_attackDirection];
     }
 
     void InstantiateWeapon(Tile _tile, string _weaponType)

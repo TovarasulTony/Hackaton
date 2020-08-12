@@ -14,6 +14,15 @@ public class GenericBehavior
     protected List<GenericBehavior> mBehaviorsList = new List<GenericBehavior>();
 
     //to be called in Start()
+    public void AwakeBehavior()
+    {
+        AwakeMyBehavior();
+        for (int i = 0; i < mBehaviorsList.Count; ++i)
+        {
+            mBehaviorsList[i].AwakeBehavior();
+        }
+    }
+
     public void StartBehavior()
     {
         StartMyBehavior();
@@ -52,6 +61,9 @@ public class GenericBehavior
             mBehaviorsList[i].LateUpdateBehavior();
         }
     }
+
+    protected virtual void AwakeMyBehavior()
+    { }
 
     protected virtual void StartMyBehavior()
     { }

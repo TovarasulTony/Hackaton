@@ -85,3 +85,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c741590957b256543aadb9a66789e1e4, type: 3}
   m_ShopWallPrefab: {fileID: 2404876690361856225, guid: 4440486903da4dd4aa27c96b4089329f,
     type: 3}
+  m_EnemyList:
+  - {fileID: 1140385323853833521, guid: 427fa6de46e605a4e924322cf2fd2bbf, type: 3}
+  - {fileID: 2620026475449566766, guid: 10909f5f622f26f49ad028de8294e051, type: 3}

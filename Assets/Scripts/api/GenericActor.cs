@@ -6,7 +6,15 @@ public class GenericActor : MonoBehaviour
 {
     protected List<GenericBehavior> mBehaviorsList = new List<GenericBehavior>();
 
-    // Use this for initialization
+    void Awake()
+    {
+        AwakeActor();
+        for (int i = 0; i < mBehaviorsList.Count; ++i)
+        {
+            mBehaviorsList[i].StartBehavior();
+        }
+    }
+
     void Start()
     {
         StartActor();
@@ -16,7 +24,6 @@ public class GenericActor : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         UpdateActor();
@@ -44,6 +51,7 @@ public class GenericActor : MonoBehaviour
         Destroy(gameObject);
     }
 
+    protected virtual void AwakeActor() { }
     protected virtual void StartActor() { }
     protected virtual void UpdateActor() { }
     protected virtual void FixedUpdateActor() { }

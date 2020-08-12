@@ -9,10 +9,11 @@ public class Tile : MonoBehaviour, IBeat
     Dictionary<DIRECTION, Tile> m_Tiles = null;
     List<AboveTileObject> m_ContainedObjects = null;
     BEAT_PARITY m_TileParity;
-    int m_Elevation = -1;
+    float m_LayerNumber;
     public FOG_STATUS m_FogStatus;
     [SerializeField]
     public KeyValuePair<int, int> m_Coordinates;
+    bool m_IsSubscribedToBeat = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -25,8 +26,6 @@ public class Tile : MonoBehaviour, IBeat
         m_Tiles.Add(DIRECTION.Down, null);
         m_Tiles.Add(DIRECTION.Left, null);
         m_Tiles.Add(DIRECTION.Right, null);
-
-        BeatMaster.instance.SubscribeToBeat(gameObject.GetComponent<IBeat>());
     }
 
     public void AddToTile(AboveTileObject _objectToAdd)
@@ -34,6 +33,10 @@ public class Tile : MonoBehaviour, IBeat
         m_ContainedObjects.Add(_objectToAdd);
         _objectToAdd.SetTileReference(gameObject.GetComponent<Tile>());
         _objectToAdd.SetFogStatus(m_FogStatus);
+        if(_objectToAdd.GetComponent<Wall>() != null)
+        {
+            UnsubscribeToBeat();
+        }
     }
 
     public void RemoveFromTile(AboveTileObject _objetToRemove)
@@ -41,6 +44,10 @@ public class Tile : MonoBehaviour, IBeat
         if(m_ContainedObjects.Contains(_objetToRemove))
         {
             m_ContainedObjects.Remove(_objetToRemove);
+        }
+        if (Contains<Wall>() == null && m_FogStatus != FOG_STATUS.Unexplored)
+        {
+            SubscribeToBeat();
         }
     }
 
@@ -100,14 +107,39 @@ public class Tile : MonoBehaviour, IBeat
         switch (m_FogStatus)
         {
             case FOG_STATUS.Unexplored:
+                UnsubscribeToBeat();
                 GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
                 break;
             case FOG_STATUS.Explored:
-                GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f);
+                if (Contains<Wall>() == null)
+                {
+                    SubscribeToBeat();
+                }
                 break;
             case FOG_STATUS.InVision:
+                if (Contains<Wall>() == null)
+                {
+                    SubscribeToBeat();
+                }
                 GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
                 break;
+        }
+    }
+
+    void SubscribeToBeat()
+    {
+        if(m_IsSubscribedToBeat == false)
+        {
+            BeatMaster.instance.SubscribeToBeat(gameObject.GetComponent<IBeat>());
+            m_IsSubscribedToBeat = true;
+        }
+    }
+    void UnsubscribeToBeat()
+    {
+        if (m_IsSubscribedToBeat == true)
+        {
+            BeatMaster.instance.UnsubscribeToBeat(gameObject.GetComponent<IBeat>());
+            m_IsSubscribedToBeat = false;
         }
     }
 
@@ -124,5 +156,15 @@ public class Tile : MonoBehaviour, IBeat
     public int GetY()
     {
         return m_Coordinates.Value;
+    }
+
+    public void SetLayerNumber(int _number)
+    {
+        m_LayerNumber = (float)_number / 100;
+    }
+
+    public float GetLayerNumber()
+    {
+        return m_LayerNumber;
     }
 }

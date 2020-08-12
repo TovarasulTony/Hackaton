@@ -55,6 +55,32 @@ public class PlayerAnimation : GenericBehavior, IBeat, IPlayerSubscriber
         m_PlayerReference.transform.Find("Animation").GetComponent<Animator>().SetTrigger("animation");
     }
 
+    public void AttackAnimation(DIRECTION _attackDirection)
+    {
+        //mda ma cam pis pe cacatul asta de functie, o sa il fac minimal I guess
+        Transform attackSwipe = Object.Instantiate(Library.instance.GetPrefab("AttackSwipe"));
+        attackSwipe.position = m_PlayerObject.position;
+        switch(_attackDirection)
+        {
+            case DIRECTION.Up:
+                attackSwipe.position = new Vector3(attackSwipe.position.x, attackSwipe.position.y + 1.2f, attackSwipe.position.z);
+                attackSwipe.transform.Rotate(0, 0, 90, Space.World);
+                break;
+            case DIRECTION.Down:
+                attackSwipe.position = new Vector3(attackSwipe.position.x, attackSwipe.position.y - 0.8f, attackSwipe.position.z);
+                attackSwipe.transform.Rotate(0, 0, -90, Space.World);
+                break;
+            case DIRECTION.Right:
+                attackSwipe.position = new Vector3(attackSwipe.position.x + 0.8f, attackSwipe.position.y + 0.2f, attackSwipe.position.z);
+                break;
+            case DIRECTION.Left:
+                attackSwipe.position = new Vector3(attackSwipe.position.x - 0.8f, attackSwipe.position.y + 0.2f, attackSwipe.position.z);
+                attackSwipe.transform.Rotate(0, 0, 180, Space.World);
+                break;
+        }
+        UI.instance.CameraShake();
+    }
+
     void MovingAnimation()
     {
         if (m_MovementStatus != MOVEMENT_STATUS.MovingAnimation)

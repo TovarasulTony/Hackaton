@@ -42,6 +42,7 @@ public class BeatMaster : MonoBehaviour
     private void Start()
     {
         m_Audio.Play();
+        m_Audio.volume = 0.1f;
     }
     /*
     void Update()

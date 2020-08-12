@@ -12,7 +12,7 @@ public class UI : MonoBehaviour
 
     void Awake()
     {
-        if(instance != null)
+        if (instance != null)
         {
             Debug.LogWarning("Instanta exista deja!");
             Destroy(instance);
@@ -23,6 +23,15 @@ public class UI : MonoBehaviour
         {
             m_BorderDictionary.Add(border.name, border);
         }
+        Transform rightSide = transform.Find("RightSide");
+        rightSide.localPosition = new Vector3((float)Screen.width * 23 / 51200, 0, 0);//raport gasit de mine
+        Transform leftSide = transform.Find("LeftSide");
+        leftSide.localPosition = new Vector3(-((float)Screen.width * 23 / 25600), 0, 0);//raport gasit de mine
+    }
+
+    public void CameraShake()
+    {
+        GetComponent<CameraFollow>().CameraShake();
     }
 
     public void NotifyUIChange(string _uiElement, string _newElement)

@@ -33,6 +33,8 @@ public class MiniMap : MonoBehaviour
         {
             for (int j = 0; j < _MatrixLength; j++)
             {
+                if (Map.instance.GetTile(i, j) == null)
+                    continue;
                 Vector3 _position = new Vector3(i, j, 0);
                 MiniTile _prefab_minitile = Instantiate(m_MiniTilePrefab, _position, Quaternion.identity, transform);
                 _prefab_minitile.transform.localPosition = _position;
@@ -47,6 +49,7 @@ public class MiniMap : MonoBehaviour
                     default:
                         break;
                 }
+                
                 _prefab_minitile.SetTile(Map.instance.GetTile(i, j));
                 m_MiniTileMatrix[i, j] = _prefab_minitile;
 
