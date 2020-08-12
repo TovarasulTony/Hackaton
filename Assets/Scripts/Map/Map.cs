@@ -94,4 +94,9 @@ public class Map : MonoBehaviour
     {
         return m_Pathfinder.GetPlayerDistance(_tile);
     }
+
+    public Tile GetTile(int x, int y)
+    {
+        return m_TileMatrix[x, y];
+    }
 }

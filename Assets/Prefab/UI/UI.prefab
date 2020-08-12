@@ -356,6 +356,7 @@ Transform:
   - {fileID: 1915721357941012065}
   - {fileID: 4037932615772306342}
   - {fileID: 8151128519806122702}
+  - {fileID: 2060706763278794818}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -483,3 +484,48 @@ MonoBehaviour:
   m_BeatlingPrefab: {fileID: 7206417584921628046, guid: c9c45b16635395847bd5deecd333ad0f,
     type: 3}
   m_HeartReference: {fileID: 7975587432989433412}
+--- !u!1 &8293286372992855122
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2060706763278794818}
+  - component: {fileID: 6048744826172192535}
+  m_Layer: 0
+  m_Name: MiniMap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2060706763278794818
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8293286372992855122}
+  m_LocalRotation: {x: 0.7071068, y: 0.7071068, z: 0, w: 0}
+  m_LocalPosition: {x: 1.6, y: -0.7, z: 1}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7975587433097225394}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 90}
+--- !u!114 &6048744826172192535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8293286372992855122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be836629eb949dc4a8604a8bae3fc397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MiniTilePrefab: {fileID: 1597534025779363838, guid: 7953e378f01751448b187ebad75bf733,
+    type: 3}
