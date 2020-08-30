@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Change variable names that start with "_"
 public enum MINITILE_STATUS { Invalid, DirtWall, BrickWall};
 
 public class MiniMap : MonoBehaviour

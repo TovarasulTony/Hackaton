@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+// Change variable names that start with "_"
 public class MiniTile : MonoBehaviour , IBeat
 {
-    public Sprite m_Sprite;
+    public Sprite m_Sprite;//remove this line
     MINITILE_STATUS m_MiniTileStatus;
     Tile m_Tile;
     SpriteRenderer m_SpriteRenderer;
+    Color DirtWallColor = new Color(0.54f, 0.27f, 0.07f, 1);
+    Color FloorColor = new Color(0.87f, 0.72f, 0.52f, 1);
+    Color BrickWallColor = new Color(1, 0.84f, 0, 1);
+    Color PlayerColor = new Color(0, 0, 1, 1);
+    Color EnemyColor = new Color(1, 0, 0, 1);
 
     void Awake()
     {
@@ -22,20 +27,20 @@ public class MiniTile : MonoBehaviour , IBeat
         if (m_Tile.m_FogStatus == FOG_STATUS.InVision)
         {
             SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-            
-            if(m_Tile.GetNumberOfElements() == 0)
-                spriteRenderer.color = new Color(0.749f, 0.356f, 0.250f, 1);
+
+            if (m_Tile.GetNumberOfElements() == 0)
+                spriteRenderer.color = FloorColor;
             else if (m_Tile.Contains<Wall>() != null)
             {
-                if(m_MiniTileStatus == MINITILE_STATUS.DirtWall)
-                    spriteRenderer.color = new Color(0.5f, 0.5f, 0.5f, 1);
+                if (m_MiniTileStatus == MINITILE_STATUS.DirtWall)
+                    spriteRenderer.color = DirtWallColor;
                 else
-                    spriteRenderer.color = new Color(0.2f, 0.2f, 0.2f, 1);
+                    spriteRenderer.color = BrickWallColor;
             }
             else if (m_Tile.Contains<Enemy>() != null)
-                spriteRenderer.color = new Color(1, 0, 0, 1);
+                spriteRenderer.color = EnemyColor;
             else if (m_Tile.Contains<Player>() != null)
-                spriteRenderer.color = new Color(0, 0, 1, 1);
+                spriteRenderer.color = PlayerColor;
         }
     }
 
