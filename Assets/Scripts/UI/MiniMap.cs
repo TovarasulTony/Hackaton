@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Change variable names that start with "_"
 public enum MINITILE_STATUS { Invalid, DirtWall, BrickWall};
 
 public class MiniMap : MonoBehaviour
@@ -25,34 +24,34 @@ public class MiniMap : MonoBehaviour
 
     void CreateMiniMap()
     {
-        STRUCTURE_TYPE[,] _StructureMap;
-        _StructureMap = Map.instance.GetStructureMap();
-        int _MatrixLength = Map.instance.GetMatrixLength();
-        m_MiniTileMatrix = new MiniTile[_MatrixLength, _MatrixLength];
+        STRUCTURE_TYPE[,] structureMap;
+        structureMap = Map.instance.GetStructureMap();
+        int matrixLength = Map.instance.GetMatrixLength();
+        m_MiniTileMatrix = new MiniTile[matrixLength, matrixLength];
 
-        for (int i = 0; i< _MatrixLength; i++)
+        for (int i = 0; i< matrixLength; i++)
         {
-            for (int j = 0; j < _MatrixLength; j++)
+            for (int j = 0; j < matrixLength; j++)
             {
                 if (Map.instance.GetTile(i, j) == null)
                     continue;
-                Vector3 _position = new Vector3(i, j, 0);
-                MiniTile _prefab_minitile = Instantiate(m_MiniTilePrefab, _position, Quaternion.identity, transform);
-                _prefab_minitile.transform.localPosition = _position;
-                switch (_StructureMap[i, j])
+                Vector3 position = new Vector3(i, j, 0);
+                MiniTile prefabMiniTile = Instantiate(m_MiniTilePrefab, position, Quaternion.identity, transform);
+                prefabMiniTile.transform.localPosition = position;
+                switch (structureMap[i, j])
                 {
                     case STRUCTURE_TYPE.Wall:
-                        _prefab_minitile.SetMiniTileStatus(MINITILE_STATUS.DirtWall); 
+                        prefabMiniTile.SetMiniTileStatus(MINITILE_STATUS.DirtWall); 
                         break;
                     case STRUCTURE_TYPE.ShopWall:
-                        _prefab_minitile.SetMiniTileStatus(MINITILE_STATUS.BrickWall);
+                        prefabMiniTile.SetMiniTileStatus(MINITILE_STATUS.BrickWall);
                         break;
                     default:
                         break;
                 }
                 
-                _prefab_minitile.SetTile(Map.instance.GetTile(i, j));
-                m_MiniTileMatrix[i, j] = _prefab_minitile;
+                prefabMiniTile.SetTile(Map.instance.GetTile(i, j));
+                m_MiniTileMatrix[i, j] = prefabMiniTile;
 
 
 

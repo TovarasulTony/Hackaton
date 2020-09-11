@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Change variable names that start with "_"
+
 public class MiniTile : MonoBehaviour , IBeat
 {
     public Sprite m_Sprite;//remove this line
