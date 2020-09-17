@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class MiniTile : MonoBehaviour , IBeat
 {
-    public Sprite m_Sprite;//remove this line
     MINITILE_STATUS m_MiniTileStatus;
     Tile m_Tile;
     SpriteRenderer m_SpriteRenderer;
