@@ -1,5 +1,5 @@
 # Hackaton
-Pt ca aia de la EA sunt laba am decis sa facem propriul nostru hackaton.
+This should be a crypt of the necrodancer copy.
 
 # Planing
 https://app.hacknplan.com/p/121697/dashboards/project
