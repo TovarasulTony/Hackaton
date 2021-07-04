@@ -121,6 +121,11 @@ public class Map : MonoBehaviour
         return m_Pathfinder.GetPlayerDistance(_tile);
     }
 
+    public Tile GetTile(int _x, int _y)
+    {
+        return m_TileMatrix[_x, _y];
+    }
+
     public void AddEnemy(Enemy _enemy)
     {
         m_Pathfinder.AddEnemy(_enemy);
